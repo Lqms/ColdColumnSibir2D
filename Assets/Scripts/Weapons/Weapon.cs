@@ -12,7 +12,6 @@ public class Weapon : MonoBehaviour
     private bool _canShoot = true;
     private bool _isReloading = false;
 
-    private SpriteRenderer _spriteRenderer;
     private WaitForSeconds _fireRateDelay;
     private WaitForSeconds _reloadingTime;
 
@@ -24,25 +23,19 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-
-        SetNewData(_data);
+        SetData();
     }
 
-    public void SetNewData(WeaponData newData)
+    private void SetData()
     {
-        ResetSettings();
-
-        _data = newData;
         _fireRateDelay = new WaitForSeconds(SecondsInMinute / _data.FireRate);
         _reloadingTime = new WaitForSeconds(_data.ReloadTime);
-        _spriteRenderer.sprite = newData.Sprite;
-        _clip.Init(newData.Bullet, newData.MaxBullets);
+        _clip.Init(_data.Bullet, _data.MaxBullets);
 
-        BulletsChanged?.Invoke(_clip.CurrentBulletsCount, _clip.MaxBullets);
+        BulletsChanged?.Invoke(_clip.CurrentBulletsCount, _clip.MaxBullets); // доработать
     }
 
-    private void ResetSettings()
+    public void ResetSettings()
     {
         StopAllCoroutines();
         _canShoot = true;
@@ -62,7 +55,7 @@ public class Weapon : MonoBehaviour
         float bulletRotationZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
         bullet.gameObject.SetActive(true);
         bullet.Init(lookDirection, _shootPoint.position, _data.ShotPower, bulletRotationZ, _data.FireRange, _data.DamageReduceOverMaxDistance);
-        BulletsChanged?.Invoke(_clip.CurrentBulletsCount, _clip.MaxBullets);
+        BulletsChanged?.Invoke(_clip.CurrentBulletsCount, _clip.MaxBullets); // доработать
 
         StartCoroutine(InternalReloading());
     }
@@ -89,6 +82,6 @@ public class Weapon : MonoBehaviour
         _isReloading = false;
 
         _clip.Refresh();
-        BulletsChanged?.Invoke(_clip.CurrentBulletsCount, _clip.MaxBullets);
+        BulletsChanged?.Invoke(_clip.CurrentBulletsCount, _clip.MaxBullets); // доработать
     }
 }

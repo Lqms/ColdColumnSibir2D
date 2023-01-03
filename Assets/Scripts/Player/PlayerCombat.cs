@@ -12,12 +12,16 @@ public class PlayerCombat : MonoBehaviour
     {
         _input.ShootKeyPressing += OnShootKeyPressing;
         _input.ReloadKeyPressed += OnReloadKeyPressed;
+
+        InteractableWeapon.PickedUp += OnWeaponPickedUp;
     }
 
     private void OnDisable()
     {
         _input.ShootKeyPressing -= OnShootKeyPressing;
         _input.ReloadKeyPressed -= OnReloadKeyPressed;
+
+        InteractableWeapon.PickedUp -= OnWeaponPickedUp;
     }
 
     private void OnShootKeyPressing()
@@ -30,5 +34,13 @@ public class PlayerCombat : MonoBehaviour
     {
         if (_weapon != null)
             _weapon.Reload();
+    }
+
+    private void OnWeaponPickedUp(Weapon weapon)
+    {
+        Transform currentParent = _weapon.transform.parent;
+        _weapon.transform.parent = null;
+        _weapon = weapon;
+        _weapon.transform.parent = currentParent;
     }
 }

@@ -11,7 +11,6 @@ public class WeaponData : ScriptableObject
     [SerializeField] private float _fireRange;
     [SerializeField] private float _damageReduceOverMaxDistance;
     [SerializeField] private int _maxBullets;
-    [SerializeField] private Sprite _sprite;
     [SerializeField] private Bullet _bullet;
 
     public float ShotPower => _shotPower;
@@ -20,6 +19,5 @@ public class WeaponData : ScriptableObject
     public float FireRange => _fireRange;
     public float DamageReduceOverMaxDistance => _damageReduceOverMaxDistance;
     public int MaxBullets => _maxBullets;
-    public Sprite Sprite => _sprite;
     public Bullet Bullet => _bullet;
 }

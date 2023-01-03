@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InteractableWeapon : InteractableObject
 {
     [SerializeField] private string _message;
+    [SerializeField] private Weapon _logic;
+
+    public static event UnityAction<Weapon> PickedUp;
 
     public override string GetMessage()
     {
@@ -13,6 +17,7 @@ public class InteractableWeapon : InteractableObject
 
     public override void Interact()
     {
-        print("picked up weapon");
+        _logic.ResetSettings();
+        PickedUp?.Invoke(_logic);
     }
 }

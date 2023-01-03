@@ -15,7 +15,8 @@ public class Bullet : MonoBehaviour
             print("Hitting " + _damage);
         }
 
-        gameObject.SetActive(false);
+        if (collision.TryGetComponent(out Obstacle obstacle) == false)
+            gameObject.SetActive(false);
     }
 
     private void OnBecameInvisible()
