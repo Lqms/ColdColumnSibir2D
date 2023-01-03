@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] private Collider2D _collider;
     [SerializeField] private WeaponData _data;
     [SerializeField] private Clip _clip;
     [SerializeField] private Transform _shootPoint;
@@ -16,6 +17,8 @@ public class Weapon : MonoBehaviour
     private WaitForSeconds _reloadingTime;
 
     public WeaponData Data => _data;
+    public Collider2D Collider => _collider;
+
 
     public event UnityAction<int, int> BulletsChanged;
 

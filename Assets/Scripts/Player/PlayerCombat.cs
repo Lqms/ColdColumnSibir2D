@@ -40,7 +40,9 @@ public class PlayerCombat : MonoBehaviour
     {
         Transform currentParent = _weapon.transform.parent;
         _weapon.transform.parent = null;
+        _weapon.Collider.isTrigger = true;
         _weapon = weapon;
         _weapon.transform.parent = currentParent;
+        _weapon.Collider.isTrigger = false;
     }
 }
