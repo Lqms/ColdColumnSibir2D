@@ -8,7 +8,9 @@ public class InteractableWeapon : InteractableObject
     [SerializeField] private string _message;
     [SerializeField] private Weapon _logic;
 
-    public static event UnityAction<Weapon> PickedUp;
+    public static event UnityAction<InteractableWeapon> PickedUp;
+
+    public Weapon Logic => _logic;
 
     public override string GetMessage()
     {
@@ -18,6 +20,6 @@ public class InteractableWeapon : InteractableObject
     public override void Interact()
     {
         _logic.ResetSettings();
-        PickedUp?.Invoke(_logic);
+        PickedUp?.Invoke(this);
     }
 }

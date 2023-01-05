@@ -8,6 +8,16 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private List<InteractableObject> _interactableObjects = new List<InteractableObject>();
 
+    private void OnEnable()
+    {
+        InteractableWeapon.PickedUp += OnWeaponPickedUp;
+    }
+
+    private void OnDisable()
+    {
+        InteractableWeapon.PickedUp -= OnWeaponPickedUp;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out InteractableObject interactableObject))
@@ -53,5 +63,10 @@ public class PlayerCollisionHandler : MonoBehaviour
         }
 
         return closestObject;
+    }
+
+    private void OnWeaponPickedUp(InteractableWeapon pickedUpWeapon)
+    {
+        _interactableObjects.Remove(pickedUpWeapon);
     }
 }

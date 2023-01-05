@@ -36,14 +36,14 @@ public class PlayerCombat : MonoBehaviour
             _currentWeapon.Reload();
     }
 
-    private void OnWeaponPickedUp(Weapon pickedUpWeapon)
+    private void OnWeaponPickedUp(InteractableWeapon pickedUpWeapon)
     {
         Transform currentWeaponParent = _currentWeapon.transform.parent;
         _currentWeapon.transform.rotation = Quaternion.Euler(Vector3.zero);
         _currentWeapon.Collider.isTrigger = true;
         _currentWeapon.transform.parent = null;
 
-        _currentWeapon = pickedUpWeapon;
+        _currentWeapon = pickedUpWeapon.Logic;
 
         _currentWeapon.Collider.isTrigger = false;
         _currentWeapon.transform.parent = currentWeaponParent;
