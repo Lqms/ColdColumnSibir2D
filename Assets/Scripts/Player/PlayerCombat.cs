@@ -6,7 +6,7 @@ public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] private PlayerInput _input;
     [SerializeField] private PlayerRotator _rotator;
-    [SerializeField] private Weapon _weapon;
+    [SerializeField] private Weapon _currentWeapon;
 
     private void OnEnable()
     {
@@ -26,23 +26,28 @@ public class PlayerCombat : MonoBehaviour
 
     private void OnShootKeyPressing()
     {
-        if (_weapon != null)
-            _weapon.TryShoot(_rotator.LookDirection);
+        if (_currentWeapon != null)
+            _currentWeapon.TryShoot(_rotator.LookDirection);
     }
 
     private void OnReloadKeyPressed()
     {
-        if (_weapon != null)
-            _weapon.Reload();
+        if (_currentWeapon != null)
+            _currentWeapon.Reload();
     }
 
-    private void OnWeaponPickedUp(Weapon weapon)
+    private void OnWeaponPickedUp(Weapon pickedUpWeapon)
     {
-        Transform currentParent = _weapon.transform.parent;
-        _weapon.transform.parent = null;
-        _weapon.Collider.isTrigger = true;
-        _weapon = weapon;
-        _weapon.transform.parent = currentParent;
-        _weapon.Collider.isTrigger = false;
+        Transform currentWeaponParent = _currentWeapon.transform.parent;
+        _currentWeapon.transform.rotation = Quaternion.Euler(Vector3.zero);
+        _currentWeapon.Collider.isTrigger = true;
+        _currentWeapon.transform.parent = null;
+
+        _currentWeapon = pickedUpWeapon;
+
+        _currentWeapon.Collider.isTrigger = false;
+        _currentWeapon.transform.parent = currentWeaponParent;
+        _currentWeapon.transform.position = currentWeaponParent.position;
+        _currentWeapon.transform.rotation = currentWeaponParent.rotation;
     }
 }

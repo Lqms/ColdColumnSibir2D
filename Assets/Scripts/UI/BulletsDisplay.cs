@@ -21,6 +21,6 @@ public class BulletsDisplay : MonoBehaviour
 
     private void OnBulletsChanged(int currentBullets, int maxBullets)
     {
-        _bulletsDisplay.text = currentBullets.ToString() + "/" + maxBullets;
+        _bulletsDisplay.text = currentBullets.ToString() + "rnds";
     }
 }
