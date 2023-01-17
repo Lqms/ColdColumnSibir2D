@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using DG.Tweening;
 
 public class Weapon : MonoBehaviour
 {
@@ -16,32 +17,28 @@ public class Weapon : MonoBehaviour
     private WaitForSeconds _fireRateDelay;
     private WaitForSeconds _reloadingTime;
 
-    public Collider2D Collider => _collider;
     public WeaponData Data => _data;
 
-    public event UnityAction<int, int> BulletsChanged;
+    public event UnityAction<int> BulletsChanged;
 
     private const int SecondsInMinute = 60;
 
     private void Start()
     {
-        SetData();
-    }
-
-    private void SetData()
-    {
         _fireRateDelay = new WaitForSeconds(SecondsInMinute / _data.FireRate);
         _reloadingTime = new WaitForSeconds(_data.ReloadTime);
         _clip.Init(_data.Bullet, _data.MaxBullets);
 
-        BulletsChanged?.Invoke(_clip.CurrentBulletsCount, _clip.MaxBullets); // доработать
+        BulletsChanged?.Invoke(_clip.CurrentBulletsCount); 
     }
 
-    public void ResetSettings()
+    private void ResetSettings()
     {
         StopAllCoroutines();
         _canShoot = true;
         _isReloading = false;
+
+        BulletsChanged?.Invoke(_clip.CurrentBulletsCount);
     }
 
     public void TryShoot(Vector2 lookDirection)
@@ -57,7 +54,7 @@ public class Weapon : MonoBehaviour
         float bulletRotationZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
         bullet.gameObject.SetActive(true);
         bullet.Init(lookDirection, _shootPoint.position, _data.ShotPower, bulletRotationZ, _data.FireRange, _data.DamageReduceOverMaxDistance);
-        BulletsChanged?.Invoke(_clip.CurrentBulletsCount, _clip.MaxBullets); // доработать
+        BulletsChanged?.Invoke(_clip.CurrentBulletsCount);
 
         StartCoroutine(InternalReloading());
     }
@@ -84,6 +81,28 @@ public class Weapon : MonoBehaviour
         _isReloading = false;
 
         _clip.Refresh();
-        BulletsChanged?.Invoke(_clip.CurrentBulletsCount, _clip.MaxBullets); // доработать
+        BulletsChanged?.Invoke(_clip.CurrentBulletsCount);
+    }
+
+    public void Drop()
+    {
+        // Vector3[] dropPath = { new Vector3(1, 1, 0), new Vector3(1, 2, 0), new Vector3(2, 1, 0), new Vector3(3, 0, 0) };
+        // transform.DOLocalPath(dropPath, 1);
+        // transform.DOLocalJump(transform.position + new Vector3(3, 0, 0), 2, 1, 1);
+        //GetComponent<Rigidbody2D>().velocity = new Vector2(transform.localScale.x, 2);
+
+        transform.rotation = Quaternion.Euler(Vector3.zero);
+        _collider.isTrigger = true;
+        transform.parent = null;
+        ResetSettings();
+    }
+
+    public void OnPickUp(Transform weaponPoint)
+    {
+        _collider.isTrigger = false;
+        transform.parent = weaponPoint;
+        transform.position = weaponPoint.position;
+        transform.rotation = weaponPoint.rotation;
+        ResetSettings();
     }
 }

@@ -7,17 +7,11 @@ public class Clip : MonoBehaviour
 {
     private Bullet _bullet;
     private int _capacity;
-    private int _currentBulletNumber;
-    private List<Bullet> _bullets;
 
-    public int MaxBullets => _capacity;
+    private List<Bullet> _bullets = new List<Bullet>();
+    private int _currentBulletNumber = 0;
+
     public int CurrentBulletsCount => _capacity - _currentBulletNumber;
-
-    private void Start()
-    {
-        _bullets = new List<Bullet>();
-        _currentBulletNumber = 0;
-    }
 
     private void OnDisable()
     {
@@ -37,12 +31,9 @@ public class Clip : MonoBehaviour
         {
             bullet = Instantiate(_bullet);
             _bullets.Add(bullet);
-            return bullet;
         }
-        else
-        {
-            return bullet;
-        }
+
+        return bullet;
     }
 
     public void Refresh()
@@ -54,6 +45,5 @@ public class Clip : MonoBehaviour
     {
         _bullet = bullet;
         _capacity = maxBullets;
-        _currentBulletNumber = 0;
     }
 }

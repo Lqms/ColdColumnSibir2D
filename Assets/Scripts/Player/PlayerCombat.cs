@@ -6,12 +6,15 @@ public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] private PlayerInput _input;
     [SerializeField] private PlayerRotator _rotator;
-    [SerializeField] private Weapon _currentWeapon;
+    [SerializeField] private Transform _weaponPoint;
+
+    private Weapon _currentWeapon;
 
     private void OnEnable()
     {
         _input.ShootKeyPressing += OnShootKeyPressing;
         _input.ReloadKeyPressed += OnReloadKeyPressed;
+        _input.ThrowGunKeyPressed += OnThrowGunKeyPressed;
 
         InteractableWeapon.PickedUp += OnWeaponPickedUp;
     }
@@ -38,16 +41,16 @@ public class PlayerCombat : MonoBehaviour
 
     private void OnWeaponPickedUp(InteractableWeapon pickedUpWeapon)
     {
-        Transform currentWeaponParent = _currentWeapon.transform.parent;
-        _currentWeapon.transform.rotation = Quaternion.Euler(Vector3.zero);
-        _currentWeapon.Collider.isTrigger = true;
-        _currentWeapon.transform.parent = null;
+        if (_currentWeapon != null)
+            _currentWeapon.Drop();
 
         _currentWeapon = pickedUpWeapon.Logic;
+        _currentWeapon.OnPickUp(_weaponPoint);
+    }
 
-        _currentWeapon.Collider.isTrigger = false;
-        _currentWeapon.transform.parent = currentWeaponParent;
-        _currentWeapon.transform.position = currentWeaponParent.position;
-        _currentWeapon.transform.rotation = currentWeaponParent.rotation;
+    private void OnThrowGunKeyPressed()
+    {
+        if (_currentWeapon != null)
+            _currentWeapon.Drop();
     }
 }

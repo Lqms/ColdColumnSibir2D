@@ -12,9 +12,11 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private KeyCode _reloadKey = KeyCode.R;
     [SerializeField] private KeyCode _interactKey = KeyCode.E;
     [SerializeField] private KeyCode _shootKey = KeyCode.Mouse0;
+    [SerializeField] private KeyCode _throwGunKey = KeyCode.Mouse1;
 
     public event UnityAction<Vector2> MoveKeyPressing;
     public event UnityAction ShootKeyPressing;
+    public event UnityAction ThrowGunKeyPressed;
     public event UnityAction ReloadKeyPressed;
     public event UnityAction InteractKeyPressed;
 
@@ -47,6 +49,11 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKey(_shootKey))
         {
             ShootKeyPressing?.Invoke();
+        }
+
+        if (Input.GetKeyDown(_throwGunKey))
+        {
+            ThrowGunKeyPressed?.Invoke();
         }
 
         if (Input.GetKeyDown(_reloadKey))

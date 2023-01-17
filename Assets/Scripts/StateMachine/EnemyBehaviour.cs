@@ -12,6 +12,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     [SerializeField] private Transform[] _points;
     [SerializeField] private Player _player;
+    [SerializeField] private Health _health;
 
     private void Start()
     {
@@ -78,5 +79,21 @@ public class EnemyBehaviour : MonoBehaviour
         // Debug.DrawRay(ray.origin, ray.direction * _weapon.Data.FireRange, Color.red);
 
         return (hit.collider != null && hit.collider.TryGetComponent(out Player player));
+    }
+
+    private void OnEnable()
+    {
+        _health.Overed += OnHealthOvered;
+    }
+
+    private void OnDisable()
+    {
+        _health.Overed += OnHealthOvered;
+    }
+
+    private void OnHealthOvered()
+    {
+        _weapon.Drop();
+        Destroy(gameObject);
     }
 }

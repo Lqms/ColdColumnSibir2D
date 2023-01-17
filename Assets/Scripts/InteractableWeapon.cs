@@ -14,12 +14,11 @@ public class InteractableWeapon : InteractableObject
 
     public override string GetMessage()
     {
-        return _message;
+        return _message; // переписать так, чтобы автоматически формировалось сообщшение "Ќажмите  Ћј¬»ЎјƒЋя¬«ј»ћќƒ≈…—“¬»я¬«я“јя»«Ќј—“–ќ≈  дл€ подбора Ќј«¬јЌ»≈ќ–”∆»я"
     }
 
     public override void Interact()
     {
-        _logic.ResetSettings();
         PickedUp?.Invoke(this);
     }
 }

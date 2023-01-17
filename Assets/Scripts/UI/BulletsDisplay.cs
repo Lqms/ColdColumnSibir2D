@@ -3,24 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Text))]
 public class BulletsDisplay : MonoBehaviour
 {
-    [SerializeField] private Weapon _weapon;
     [SerializeField] private Text _bulletsDisplay;
+
+    private Weapon _weapon;
 
     private void OnEnable()
     {
-        _weapon.BulletsChanged += OnBulletsChanged;
+        InteractableWeapon.PickedUp += OnWeaponPickedUp;
     }
 
     private void OnDisable()
     {
-        _weapon.BulletsChanged -= OnBulletsChanged;
+        InteractableWeapon.PickedUp -= OnWeaponPickedUp;
     }
 
-    private void OnBulletsChanged(int currentBullets, int maxBullets)
+    private void OnBulletsChanged(int currentBullets)
     {
         _bulletsDisplay.text = currentBullets.ToString() + "rnds";
+    }
+
+    private void OnWeaponPickedUp(InteractableWeapon weapon)
+    {
+        if (_weapon != null)
+            _weapon.BulletsChanged -= OnBulletsChanged;
+
+        _weapon = weapon.Logic;
+
+        _weapon.BulletsChanged += OnBulletsChanged;
     }
 }
