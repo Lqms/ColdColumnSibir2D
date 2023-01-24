@@ -86,14 +86,9 @@ public class Weapon : MonoBehaviour
 
     public void Drop()
     {
-        // Vector3[] dropPath = { new Vector3(1, 1, 0), new Vector3(1, 2, 0), new Vector3(2, 1, 0), new Vector3(3, 0, 0) };
-        // transform.DOLocalPath(dropPath, 1);
-        // transform.DOLocalJump(transform.position + new Vector3(3, 0, 0), 2, 1, 1);
-        //GetComponent<Rigidbody2D>().velocity = new Vector2(transform.localScale.x, 2);
-
-        transform.rotation = Quaternion.Euler(Vector3.zero);
-        _collider.isTrigger = true;
         transform.parent = null;
+        _collider.isTrigger = true;
+        transform.eulerAngles = Vector3.zero;
         ResetSettings();
     }
 
@@ -102,7 +97,7 @@ public class Weapon : MonoBehaviour
         _collider.isTrigger = false;
         transform.parent = weaponPoint;
         transform.position = weaponPoint.position;
-        transform.rotation = weaponPoint.rotation;
+        transform.eulerAngles = weaponPoint.eulerAngles;
         ResetSettings();
     }
 }
