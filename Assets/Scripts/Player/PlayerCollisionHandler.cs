@@ -1,72 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
+// ???
 public class PlayerCollisionHandler : MonoBehaviour
 {
-    [SerializeField] private InteractableObjectHintDisplay _hintDisplay;
+    [SerializeField] private PlayerInput _input;
 
-    private List<InteractableObject> _interactableObjects = new List<InteractableObject>();
+    private Weapon _closestWeapon;
 
-    private void OnEnable()
-    {
-        InteractableWeapon.PickedUp += OnWeaponPickedUp;
-    }
-
-    private void OnDisable()
-    {
-        InteractableWeapon.PickedUp -= OnWeaponPickedUp;
-    }
+    public event UnityAction<Weapon> InteractedWithWeapon;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out InteractableObject interactableObject))
+        if (collision.TryGetComponent(out Weapon weapon))
         {
-            _interactableObjects.Add(interactableObject);
+            _closestWeapon = weapon;
+            _input.WeaponPickUpKeyPressed += OnInteractKeyPressed;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out InteractableObject interactableObject))
+        if (collision.TryGetComponent(out Weapon weapon))
         {
-            if (_interactableObjects.Contains(interactableObject))
-                _interactableObjects.Remove(interactableObject);
+            _closestWeapon = null;
+            _input.WeaponPickUpKeyPressed -= OnInteractKeyPressed;
         }
     }
 
-    private void Update()
+    private void OnInteractKeyPressed()
     {
-        if (_interactableObjects.Count > 0)
-        {
-            var closestObject = DetermineClosestObject();
-            _hintDisplay.Activate(closestObject);
-        }
-        else
-        {
-            _hintDisplay.Deactivate();
-        }
-    }
-
-    public InteractableObject DetermineClosestObject()
-    {
-        float distance = float.MaxValue;
-        InteractableObject closestObject = null;
-
-        foreach (var interactableObject in _interactableObjects)
-        {
-            if (Vector2.Distance(transform.position, interactableObject.transform.position) < distance)
-            {
-                closestObject = interactableObject;
-                distance = Vector2.Distance(transform.position, interactableObject.transform.position);
-            }
-        }
-
-        return closestObject;
-    }
-
-    private void OnWeaponPickedUp(InteractableWeapon pickedUpWeapon)
-    {
-        _interactableObjects.Remove(pickedUpWeapon);
+        InteractedWithWeapon?.Invoke(_closestWeapon);
     }
 }

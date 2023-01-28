@@ -5,10 +5,13 @@ using UnityEngine.Events;
 
 public class PlayerInput : MonoBehaviour
 {
+    [Header("Movement")]
     [SerializeField] private KeyCode _moveUpKey = KeyCode.W;
-    [SerializeField] private KeyCode _moveRightKey = KeyCode.D;
     [SerializeField] private KeyCode _moveDownKey = KeyCode.S;
     [SerializeField] private KeyCode _moveLeftKey = KeyCode.A;
+    [SerializeField] private KeyCode _moveRightKey = KeyCode.D;
+
+    [Header("Combat")]
     [SerializeField] private KeyCode _reloadKey = KeyCode.R;
     [SerializeField] private KeyCode _interactKey = KeyCode.E;
     [SerializeField] private KeyCode _shootKey = KeyCode.Mouse0;
@@ -18,7 +21,7 @@ public class PlayerInput : MonoBehaviour
     public event UnityAction ShootKeyPressing;
     public event UnityAction ThrowGunKeyPressed;
     public event UnityAction ReloadKeyPressed;
-    public event UnityAction InteractKeyPressed;
+    public event UnityAction WeaponPickUpKeyPressed;
 
     private void Update()
     {
@@ -63,7 +66,7 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(_interactKey))
         {
-            InteractKeyPressed?.Invoke();
+            WeaponPickUpKeyPressed?.Invoke();
         }
     }
 }
