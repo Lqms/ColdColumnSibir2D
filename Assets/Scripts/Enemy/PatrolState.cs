@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
 
-public class EnemyPatrollBehaviour : MonoBehaviour
+public class PatrolState : MonoBehaviour
 {
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private Transform[] _points;

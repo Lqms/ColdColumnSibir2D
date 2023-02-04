@@ -1,61 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private PlayerInput _input;
-
     [SerializeField] private PlayerRotator _rotator;
-    [SerializeField] private PhysicsMovement _physicsMovement;
-    [SerializeField] private CombatSystem _combatSystem;
+    [SerializeField] private PlayerMovement _movement;
+    [SerializeField] private PlayerCombat _combat;
     [SerializeField] private PlayerCollisionHandler _collisionHandler;
+    [SerializeField] private Health _health;
 
     private void OnEnable()
     {
-        _input.MoveKeyPressing += OnMoveKeyPressing;
-        _input.ShootKeyPressing += OnShootKeyPressing;
-        _input.ReloadKeyPressed += OnReloadKeyPressed;
-        _input.ThrowGunKeyPressed += OnThrowGunKeyPressed;
+        PlayerInput.MoveKeyPressing += OnMoveKeyPressing;
+        PlayerInput.ShootKeyPressing += OnShootKeyPressing;
+        PlayerInput.ThrowGunKeyPressed += OnThrowGunKeyPressed;
+        PlayerInput.InteractKeyPressed += OnInteractKeyPressed;
 
-        // ?
-        _input.WeaponPickUpKeyPressed += OnWeaponPickUpKeyPressed;
+        _health.Overed += OnHealthOvered;
     }
 
     private void OnDisable()
     {
-        _input.MoveKeyPressing -= OnMoveKeyPressing;
-        _input.ShootKeyPressing -= OnShootKeyPressing;
-        _input.ReloadKeyPressed -= OnReloadKeyPressed;
-        _input.ThrowGunKeyPressed -= OnThrowGunKeyPressed;
+        PlayerInput.MoveKeyPressing -= OnMoveKeyPressing;
+        PlayerInput.ShootKeyPressing -= OnShootKeyPressing;
+        PlayerInput.ThrowGunKeyPressed -= OnThrowGunKeyPressed;
+        PlayerInput.InteractKeyPressed -= OnInteractKeyPressed;
 
-        // ?
-        _input.WeaponPickUpKeyPressed -= OnWeaponPickUpKeyPressed;
+        _health.Overed -= OnHealthOvered;
     }
 
     private void OnMoveKeyPressing(Vector2 direction)
     {
-        _physicsMovement.Move(direction);
+        _movement.Move(direction);
     }
 
     private void OnShootKeyPressing()
     {
-        _combatSystem.TryShoot(_rotator.LookDirection);
-    }
-
-    private void OnReloadKeyPressed()
-    {
-        _combatSystem.TryReload();
+        _combat.TryShoot(_rotator.LookDirection);
     }
 
     private void OnThrowGunKeyPressed()
     {
-        _combatSystem.TryThrowWeapon();
+        _combat.TryThrowWeapon();
     }
 
-    // ?
-    private void OnWeaponPickUpKeyPressed()
+    private void OnInteractKeyPressed()
     {
-        _combatSystem.TryPickUpWeapon();
+        if (_collisionHandler.ClosestWeapon != null)
+            _combat.PickUpWeapon(_collisionHandler.ClosestWeapon);
+    }
+
+    private void OnHealthOvered()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

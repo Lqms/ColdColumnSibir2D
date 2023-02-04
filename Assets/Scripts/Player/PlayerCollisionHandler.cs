@@ -3,21 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-// ???
+[RequireComponent(typeof(Collider2D))]
 public class PlayerCollisionHandler : MonoBehaviour
 {
-    [SerializeField] private PlayerInput _input;
-
-    private Weapon _closestWeapon;
-
-    public event UnityAction<Weapon> InteractedWithWeapon;
+    public Weapon ClosestWeapon { get; private set; }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Weapon weapon))
         {
-            _closestWeapon = weapon;
-            _input.WeaponPickUpKeyPressed += OnInteractKeyPressed;
+            ClosestWeapon = weapon;
         }
     }
 
@@ -25,13 +20,7 @@ public class PlayerCollisionHandler : MonoBehaviour
     {
         if (collision.TryGetComponent(out Weapon weapon))
         {
-            _closestWeapon = null;
-            _input.WeaponPickUpKeyPressed -= OnInteractKeyPressed;
+            ClosestWeapon = null;
         }
-    }
-
-    private void OnInteractKeyPressed()
-    {
-        InteractedWithWeapon?.Invoke(_closestWeapon);
     }
 }

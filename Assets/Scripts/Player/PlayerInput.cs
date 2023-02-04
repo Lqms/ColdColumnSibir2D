@@ -12,16 +12,14 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private KeyCode _moveRightKey = KeyCode.D;
 
     [Header("Combat")]
-    [SerializeField] private KeyCode _reloadKey = KeyCode.R;
     [SerializeField] private KeyCode _interactKey = KeyCode.E;
     [SerializeField] private KeyCode _shootKey = KeyCode.Mouse0;
     [SerializeField] private KeyCode _throwGunKey = KeyCode.Mouse1;
 
-    public event UnityAction<Vector2> MoveKeyPressing;
-    public event UnityAction ShootKeyPressing;
-    public event UnityAction ThrowGunKeyPressed;
-    public event UnityAction ReloadKeyPressed;
-    public event UnityAction WeaponPickUpKeyPressed;
+    public static event UnityAction<Vector2> MoveKeyPressing;
+    public static event UnityAction ShootKeyPressing;
+    public static event UnityAction ThrowGunKeyPressed;
+    public static event UnityAction InteractKeyPressed;
 
     private void Update()
     {
@@ -59,14 +57,9 @@ public class PlayerInput : MonoBehaviour
             ThrowGunKeyPressed?.Invoke();
         }
 
-        if (Input.GetKeyDown(_reloadKey))
-        {
-            ReloadKeyPressed?.Invoke();
-        }
-
         if (Input.GetKeyDown(_interactKey))
         {
-            WeaponPickUpKeyPressed?.Invoke();
+            InteractKeyPressed?.Invoke();
         }
     }
 }

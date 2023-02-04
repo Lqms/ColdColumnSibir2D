@@ -6,31 +6,23 @@ using UnityEngine.UI;
 public class BulletsDisplay : MonoBehaviour
 {
     [SerializeField] private Text _bulletsDisplay;
-
-    private Weapon _weapon;
+    [SerializeField] private PlayerCombat _playerCombat;
 
     private void OnEnable()
     {
-        InteractableWeapon.PickedUp += OnWeaponPickedUp;
+        _playerCombat.BulletsChanged += OnBulletsChanged;
     }
 
     private void OnDisable()
     {
-        InteractableWeapon.PickedUp -= OnWeaponPickedUp;
+        _playerCombat.BulletsChanged -= OnBulletsChanged;
     }
 
-    private void OnBulletsChanged(int currentBullets)
+    private void OnBulletsChanged(int newAmount)
     {
-        _bulletsDisplay.text = currentBullets.ToString() + "rnds";
-    }
-
-    private void OnWeaponPickedUp(InteractableWeapon weapon)
-    {
-        if (_weapon != null)
-            _weapon.BulletsChanged -= OnBulletsChanged;
-
-        _weapon = weapon.Logic;
-
-        _weapon.BulletsChanged += OnBulletsChanged;
+        if (newAmount > 0)
+            _bulletsDisplay.text = newAmount.ToString() + "rnds";
+        else
+            _bulletsDisplay.text = "no ammo";
     }
 }

@@ -3,18 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAgressiveBehaviour : MonoBehaviour
+public class CombatState : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private Weapon _weapon;
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private SpriteRenderer _sprite;
     [SerializeField] private Transform _weaponPoint;
-
-    private void Start()
-    {
-        _weapon.OnPickUp(_weaponPoint);
-    }
 
     private void Update()
     {
@@ -33,7 +28,7 @@ public class EnemyAgressiveBehaviour : MonoBehaviour
     private bool CheckShootingPossibility()
     {
         Ray2D ray = new Ray2D(transform.position, _sprite.transform.right);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, _weapon.Data.FireRange);
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 10);
 
         // Debug.DrawRay(ray.origin, ray.direction * _weapon.Data.FireRange, Color.red);
 

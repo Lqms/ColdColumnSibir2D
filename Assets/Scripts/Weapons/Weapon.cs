@@ -2,86 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using DG.Tweening;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private WeaponData _data;
-    [SerializeField] private Clip _clip;
+    [SerializeField] private Bullet _bullet;
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private Collider2D _collider;
+    [SerializeField] private float _fireRate;
+    [SerializeField] private int _bulletsCount;
 
-    private bool _canShoot = true;
-    private bool _isReloading = false;
-
+    private Coroutine _internalReloadingCoroutine;
     private WaitForSeconds _fireRateDelay;
-    private WaitForSeconds _reloadingTime;
 
-    public WeaponData Data => _data;
+    public int BulletsCount => _bulletsCount;
 
-    public event UnityAction<int> BulletsChanged;
-
-    private const int SecondsInMinute = 60;
+    private const int SecondsInMinutes = 60;
 
     private void Start()
     {
-        _fireRateDelay = new WaitForSeconds(SecondsInMinute / _data.FireRate);
-        _reloadingTime = new WaitForSeconds(_data.ReloadTime);
-        _clip.Init(_data.Bullet, _data.MaxBullets);
-
-        BulletsChanged?.Invoke(_clip.CurrentBulletsCount); 
+        _fireRateDelay = new WaitForSeconds(SecondsInMinutes / _fireRate);
     }
 
-    private void ResetSettings()
+    private void OnValidate()
     {
-        StopAllCoroutines();
-        _canShoot = true;
-        _isReloading = false;
-
-        BulletsChanged?.Invoke(_clip.CurrentBulletsCount);
+        _fireRateDelay = new WaitForSeconds(SecondsInMinutes / _fireRate);
     }
 
-    public void TryShoot(Vector2 lookDirection)
+    public bool TryShoot(Vector2 lookDirection)
     {
-        if (!_canShoot || _isReloading)
-            return;
-
-        var bullet = _clip.TryGetBullet();
-
-        if (bullet == null)
-            return;
+        if (_internalReloadingCoroutine != null || _bulletsCount <= 0)
+            return false;
 
         float bulletRotationZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-        bullet.gameObject.SetActive(true);
-        bullet.Init(lookDirection, _shootPoint.position, _data.ShotPower, bulletRotationZ, _data.FireRange, _data.DamageReduceOverMaxDistance);
-        BulletsChanged?.Invoke(_clip.CurrentBulletsCount);
+        var bullet = Instantiate(_bullet, _shootPoint.position, Quaternion.Euler(0, 0, bulletRotationZ));
+        bullet.Init(lookDirection);
 
-        StartCoroutine(InternalReloading());
-    }
+        _bulletsCount--;
+        _internalReloadingCoroutine = StartCoroutine(InternalReloading());
 
-    public void Reload()
-    {
-        if (_isReloading)
-            return;
-
-        StartCoroutine(Reloading());
+        return true;
     }
 
     private IEnumerator InternalReloading()
     {
-        _canShoot = false;
         yield return _fireRateDelay;
-        _canShoot = true;
-    }
-
-    private IEnumerator Reloading()
-    {
-        _isReloading = true;
-        yield return _reloadingTime;
-        _isReloading = false;
-
-        _clip.Refresh();
-        BulletsChanged?.Invoke(_clip.CurrentBulletsCount);
+        _internalReloadingCoroutine = null;
     }
 
     public void Drop()
@@ -89,7 +54,6 @@ public class Weapon : MonoBehaviour
         transform.parent = null;
         _collider.isTrigger = true;
         transform.eulerAngles = Vector3.zero;
-        ResetSettings();
     }
 
     public void OnPickUp(Transform weaponPoint)
@@ -98,6 +62,5 @@ public class Weapon : MonoBehaviour
         transform.parent = weaponPoint;
         transform.position = weaponPoint.position;
         transform.eulerAngles = weaponPoint.eulerAngles;
-        ResetSettings();
     }
 }
