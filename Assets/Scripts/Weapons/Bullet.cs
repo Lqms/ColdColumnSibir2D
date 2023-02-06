@@ -30,6 +30,5 @@ public class Bullet : MonoBehaviour
     public void Init(Vector2 direction)
     {
         _rigidbody.velocity = direction.normalized * _speed;
-        print(_rigidbody.velocity);
     }
 }
