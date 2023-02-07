@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Clip : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Bullet _bullet;
 
-    // Update is called once per frame
-    void Update()
+    private List<Bullet> _bullets = new List<Bullet>();
+
+    public Bullet GetBullet()
     {
-        
+        var bullet = _bullets.FirstOrDefault(b => b.gameObject.activeSelf == false);
+
+        if (bullet == null)
+        {
+            bullet = Instantiate(_bullet);
+            _bullets.Add(bullet);
+        }
+
+        bullet.gameObject.SetActive(true);
+
+        return bullet;
     }
 }

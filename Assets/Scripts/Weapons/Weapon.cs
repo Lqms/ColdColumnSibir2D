@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Clip))]
+[RequireComponent(typeof(Collider2D))]
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private Bullet _bullet;
+    [SerializeField] private Clip _clip;
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private Collider2D _collider;
     [SerializeField] private float _fireRate;
@@ -34,8 +36,8 @@ public class Weapon : MonoBehaviour
             return false;
 
         float bulletRotationZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-        var bullet = Instantiate(_bullet, _shootPoint.position, Quaternion.Euler(0, 0, bulletRotationZ));
-        bullet.Init(lookDirection);
+        var bullet = _clip.GetBullet();
+        bullet.Init(lookDirection, _shootPoint.position, bulletRotationZ);
 
         _bulletsCount--;
         _internalReloadingCoroutine = StartCoroutine(InternalReloading());

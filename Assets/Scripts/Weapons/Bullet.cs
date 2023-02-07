@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -18,17 +18,21 @@ public class Bullet : MonoBehaviour
         if (collision.TryGetComponent(out Health health))
         {
             health.ApplyDamage(1);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
         if (collision.TryGetComponent(out Obstacle obstacle))
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
-    public void Init(Vector2 direction)
+    public void Init(Vector2 direction, Vector3 position, float rotationZ)
     {
+        _rigidbody.velocity = Vector2.zero;
+        transform.position = position;
+        transform.rotation = Quaternion.Euler(0, 0, rotationZ);
+
         _rigidbody.velocity = direction.normalized * _speed;
     }
 }
