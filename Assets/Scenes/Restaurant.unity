@@ -20760,7 +20760,8 @@ GameObject:
   - component: {fileID: 995711903}
   - component: {fileID: 995711899}
   - component: {fileID: 995711905}
-  m_Layer: 0
+  - component: {fileID: 995711906}
+  m_Layer: 2
   m_Name: Uzi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20873,11 +20874,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96baca8487e856c4ca4a0cc0ccca09ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clip: {fileID: 0}
+  _clip: {fileID: 995711906}
   _shootPoint: {fileID: 459509550}
   _collider: {fileID: 995711899}
   _fireRate: 600
   _bulletsCount: 50
+--- !u!114 &995711906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995711898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d80f209ccac58274fb3f862251d94184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bullet: {fileID: 6266888124023971755, guid: cd2f33250c8df6641926614513ed3bc4, type: 3}
 --- !u!1 &996931652
 GameObject:
   m_ObjectHideFlags: 0
@@ -21022,7 +21036,7 @@ GameObject:
   - component: {fileID: 1245558240}
   - component: {fileID: 1245558238}
   - component: {fileID: 1245558242}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Uzi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21165,6 +21179,7 @@ GameObject:
   - component: {fileID: 1479918550}
   - component: {fileID: 1479918549}
   - component: {fileID: 1479918552}
+  - component: {fileID: 1479918553}
   m_Layer: 2
   m_Name: Minigun
   m_TagString: Untagged
@@ -21278,11 +21293,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96baca8487e856c4ca4a0cc0ccca09ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clip: {fileID: 0}
+  _clip: {fileID: 1479918553}
   _shootPoint: {fileID: 1661395286}
   _collider: {fileID: 1479918549}
   _fireRate: 600
   _bulletsCount: 100
+--- !u!114 &1479918553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1479918545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d80f209ccac58274fb3f862251d94184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bullet: {fileID: 6266888124023971755, guid: cd2f33250c8df6641926614513ed3bc4, type: 3}
 --- !u!1 &1495586960
 GameObject:
   m_ObjectHideFlags: 0
@@ -24809,7 +24837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3169638098219882109
 Transform:
   m_ObjectHideFlags: 0
@@ -24990,7 +25018,7 @@ GameObject:
   - component: {fileID: 3169638098922893723}
   - component: {fileID: 3169638098922893726}
   - component: {fileID: 3169638098922893727}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Uzi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
