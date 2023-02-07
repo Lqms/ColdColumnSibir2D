@@ -5,11 +5,12 @@ using UnityEngine.AI;
 
 public class CombatState : MonoBehaviour
 {
-    [SerializeField] private Player _player;
     [SerializeField] private Weapon _weapon;
-    [SerializeField] private NavMeshAgent _agent;
-    [SerializeField] private SpriteRenderer _sprite;
     [SerializeField] private Transform _weaponPoint;
+
+    private SpriteRenderer _spriteRenderer;
+    private NavMeshAgent _agent;
+    private Player _player;
 
     private void Update()
     {
@@ -26,9 +27,16 @@ public class CombatState : MonoBehaviour
         }
     }
 
+    public void Init(Player player, NavMeshAgent agent, SpriteRenderer spriteRenderer)
+    {
+        _agent = agent;
+        _player = player;
+        _spriteRenderer = spriteRenderer;
+    }
+
     private bool CheckShootingPossibility()
     {
-        Ray2D ray = new Ray2D(transform.position, _sprite.transform.right);
+        Ray2D ray = new Ray2D(transform.position, _spriteRenderer.transform.right);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 12);
 
         /*
@@ -44,6 +52,6 @@ public class CombatState : MonoBehaviour
     {
         Vector3 lookDirection = target - transform.position;
         float lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-        _sprite.transform.rotation = Quaternion.Euler(0, 0, lookAngle);
+        _spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, lookAngle);
     }
 }

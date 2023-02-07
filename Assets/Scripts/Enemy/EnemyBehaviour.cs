@@ -7,8 +7,9 @@ public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private Health _health;
-    [SerializeField] private Weapon _weapon;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private NavMeshAgent _agent;
+    [SerializeField] private Weapon _weapon;
 
     [Header("States")]
     [SerializeField] private CombatState _combat;

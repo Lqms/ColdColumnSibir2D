@@ -20260,7 +20260,7 @@ GameObject:
   - component: {fileID: 681096511}
   - component: {fileID: 681096512}
   - component: {fileID: 681096513}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21326,7 +21326,7 @@ GameObject:
   - component: {fileID: 1495586965}
   - component: {fileID: 1495586964}
   - component: {fileID: 1495586967}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24780,7 +24780,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3169638098219882108}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -24831,6 +24831,7 @@ GameObject:
   - component: {fileID: 3169638098219882112}
   - component: {fileID: 3169638098219882113}
   - component: {fileID: 3169638098219882114}
+  - component: {fileID: 3169638098219882115}
   m_Layer: 2
   m_Name: Enemy
   m_TagString: Untagged
@@ -24846,7 +24847,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3169638098219882108}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.85, y: -1.12, z: 0}
+  m_LocalPosition: {x: 11.11, y: -1.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24861,7 +24862,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3169638098219882108}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2a44e40072cc1d45bebecdd3dbda895, type: 3}
   m_Name: 
@@ -24875,15 +24876,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3169638098219882108}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a15b98e8614fd7b40a13c5fead6d57ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 681096506}
   _health: {fileID: 3169638098219882111}
-  _weapon: {fileID: 3169638098922893723}
+  _spriteRenderer: {fileID: 0}
   _agent: {fileID: 3169638098219882051}
+  _weapon: {fileID: 3169638098922893723}
   _combat: {fileID: 0}
   _patrol: {fileID: 0}
   _idle: {fileID: 0}
@@ -24910,16 +24912,34 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3169638098219882108}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5148c97054448134691e07eae5131fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 681096506}
   _weapon: {fileID: 3169638098922893723}
-  _agent: {fileID: 3169638098219882051}
-  _sprite: {fileID: 3169638098527073388}
   _weaponPoint: {fileID: 124377923}
+--- !u!114 &3169638098219882115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3169638098219882108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe6f27c74291264284a30815b603f7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewRadius: 5
+  _viewAngle: 90
+  _targetMask:
+    serializedVersion: 2
+    m_Bits: 128
+  _obstacleMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _spriteRenderer: {fileID: 3169638098527073388}
 --- !u!212 &3169638098527073388
 SpriteRenderer:
   m_ObjectHideFlags: 0
