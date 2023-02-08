@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class FieldOfView : MonoBehaviour
 {
     [SerializeField] private float _viewRadius = 10;
-    [SerializeField] private float _viewAngle = 90;
+    [SerializeField] private float _viewAngle = 180;
     [SerializeField] private LayerMask _targetMask;
     [SerializeField] private LayerMask _obstacleMask;
 

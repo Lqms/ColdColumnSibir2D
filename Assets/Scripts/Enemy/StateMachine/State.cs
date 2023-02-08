@@ -7,9 +7,9 @@ using DG.Tweening;
 public class State : MonoBehaviour
 {
     protected NavMeshAgent Agent;
-    protected SpriteRenderer SpriteRenderer;
     protected Player Player;
 
+    private SpriteRenderer _spriteRenderer;
     private const float TurnRate = 0.1f;
 
     protected virtual void Start()
@@ -22,13 +22,13 @@ public class State : MonoBehaviour
     {
         Vector3 lookDirection = target - transform.position;
         float lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-        SpriteRenderer.transform.DORotate(new Vector3(0, 0, lookAngle), TurnRate);
+        _spriteRenderer.transform.DORotate(new Vector3(0, 0, lookAngle), TurnRate);
     }
 
     public void Init(NavMeshAgent agent, SpriteRenderer spriteRenderer, Player player)
     {
+        _spriteRenderer = spriteRenderer;
         Agent = agent;
-        SpriteRenderer = spriteRenderer;
         Player = player;
     } 
 }
