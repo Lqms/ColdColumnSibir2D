@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyBehaviour : MonoBehaviour
+[RequireComponent(typeof(EnemyStateMachine))]
+[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(NavMeshAgent))]
+public class Enemy : MonoBehaviour
 {
-    [SerializeField] private Player _player;
+    [Header("Components")]
+    [SerializeField] private EnemyStateMachine _stateMachine;
     [SerializeField] private Health _health;
-    [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private NavMeshAgent _agent;
-    [SerializeField] private Weapon _weapon;
 
-    [Header("States")]
-    [SerializeField] private CombatState _combat;
-    [SerializeField] private PatrolState _patrol;
-    [SerializeField] private IdleState _idle;
+    [Header("Other objects")]
+    [SerializeField] private Weapon _weapon;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private Player _player;
 
     private void OnEnable()
     {
@@ -26,15 +28,12 @@ public class EnemyBehaviour : MonoBehaviour
         _health.Overed += OnHealthOvered;
     }
 
-    private void Start()
+    private void Awake()
     {
         _agent.updateRotation = false;
         _agent.updateUpAxis = false;
-    }
 
-    private void Update()
-    {
-        
+        _stateMachine.Init(_agent, _spriteRenderer, _player);
     }
 
     private void OnHealthOvered()
