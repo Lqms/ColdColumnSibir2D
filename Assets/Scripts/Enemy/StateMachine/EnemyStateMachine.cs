@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum States
+{
+    Combat,
+    Idle,
+    Patrol
+}
+
 public class EnemyStateMachine : MonoBehaviour
 {
-    [SerializeField] private State _startState;
+    [SerializeField] private State _currentState;
 
     [Header("States")]
     [SerializeField] private CombatState _combat;
@@ -24,6 +31,20 @@ public class EnemyStateMachine : MonoBehaviour
             state.enabled = false;
         }
 
-        _startState.enabled = true;
+        _currentState.enabled = true;
+    }
+
+    public void SwitchState(States newState)
+    {
+        _currentState.enabled = false;
+
+        switch (newState)
+        {
+            case States.Combat:
+                _currentState = _combat;
+                break;
+        }
+
+        _currentState.enabled = true;
     }
 }

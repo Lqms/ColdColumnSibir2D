@@ -17,15 +17,18 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Weapon _weapon;
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Player _player;
+    [SerializeField] private DetectionSystem _detectionSystem;
 
     private void OnEnable()
     {
         _health.Overed += OnHealthOvered;
+        _detectionSystem.PlayerDetected += OnPlayerDetected;
     }
 
     private void OnDisable()
     {
         _health.Overed += OnHealthOvered;
+        _detectionSystem.PlayerDetected -= OnPlayerDetected;
     }
 
     private void Awake()
@@ -40,5 +43,11 @@ public class Enemy : MonoBehaviour
     {
         _weapon.Drop();
         Destroy(gameObject);
+    }
+
+    private void OnPlayerDetected()
+    {
+        Destroy(_detectionSystem.gameObject);
+        _stateMachine.SwitchState(States.Combat);
     }
 }

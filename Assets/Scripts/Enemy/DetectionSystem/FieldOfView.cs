@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class FieldOfView : MonoBehaviour
 {
-    [SerializeField] private float _viewRadius;
-    [SerializeField] private float _viewAngle;
+    [SerializeField] private float _viewRadius = 10;
+    [SerializeField] private float _viewAngle = 90;
     [SerializeField] private LayerMask _targetMask;
     [SerializeField] private LayerMask _obstacleMask;
-    [SerializeField] private SpriteRenderer _spriteRenderer;
+
+    public event UnityAction TargetDetected;
 
     private void FixedUpdate()
     {
@@ -23,13 +25,13 @@ public class FieldOfView : MonoBehaviour
         {
             Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
 
-            if (Vector3.Angle(_spriteRenderer.transform.right, directionToTarget) < _viewAngle / 2)
+            if (Vector3.Angle(transform.right, directionToTarget) < _viewAngle / 2)
             {
                 float distantionToTarget = Vector2.Distance(transform.position, target.transform.position);
 
                 if (Physics2D.Raycast(transform.position, directionToTarget, distantionToTarget, _obstacleMask) == false)
                 {
-                    print("Detected");
+                    TargetDetected?.Invoke();
                 }
             }
         }
