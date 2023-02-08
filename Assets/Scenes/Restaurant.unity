@@ -24883,10 +24883,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a15b98e8614fd7b40a13c5fead6d57ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _stateMachine: {fileID: 3169638098219882115}
   _health: {fileID: 3169638098219882111}
   _agent: {fileID: 3169638098219882051}
   _weapon: {fileID: 3169638098922893723}
-  _stateMachine: {fileID: 3169638098219882115}
   _spriteRenderer: {fileID: 3169638098527073388}
   _player: {fileID: 681096506}
 --- !u!58 &3169638098219882113
@@ -25042,7 +25042,7 @@ GameObject:
   - component: {fileID: 3169638098527073389}
   - component: {fileID: 3169638098527073388}
   m_Layer: 2
-  m_Name: EnemySprite
+  m_Name: BodySprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25058,8 +25058,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3169638098922893721}
   - component: {fileID: 3169638098922893720}
-  - component: {fileID: 3169638098922893723}
   - component: {fileID: 3169638098922893726}
+  - component: {fileID: 3169638098922893723}
   - component: {fileID: 3169638098922893727}
   m_Layer: 2
   m_Name: Uzi
