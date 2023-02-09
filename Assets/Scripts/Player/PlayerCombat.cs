@@ -10,6 +10,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private Weapon _currentWeapon;
 
     public event UnityAction<int> BulletsChanged;
+    public event UnityAction<Weapon> Shooted;
 
     private void Start()
     {
@@ -22,8 +23,11 @@ public class PlayerCombat : MonoBehaviour
         if (_currentWeapon == null)
             return;
 
-        if (_currentWeapon.TryShoot(direction))
-            BulletsChanged?.Invoke(_currentWeapon.BulletsCount);
+        if (_currentWeapon.TryShoot(direction) == false)
+            return;
+
+        BulletsChanged?.Invoke(_currentWeapon.BulletsCount);
+        Shooted?.Invoke(_currentWeapon);
     }
 
     public void TryThrowWeapon()

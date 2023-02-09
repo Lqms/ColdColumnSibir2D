@@ -27,19 +27,23 @@ public class DetectionSystem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out Player player))
+        if (collision.TryGetComponent(out PlayerCombat player))
         {
             SwitchHearingState(true);
             SwitchVisionState(true);
+
+            _fieldOfHearing.StartReactToSound(player);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out Player player))
+        if (collision.TryGetComponent(out PlayerCombat player))
         {
             SwitchHearingState(false);
             SwitchVisionState(false);
+
+            _fieldOfHearing.StopReactToSound(player);
         }
     }
 

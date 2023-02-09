@@ -7,10 +7,18 @@ public class FieldOfHearing : MonoBehaviour
 {
     public event UnityAction TargetDetected;
 
-    private void Start()
+    public void StartReactToSound(PlayerCombat player)
     {
-        print("При выстреле игрок создает звук на точке выстрела и у него есть радиус распространения, проверять" +
-            "с помощью overlapcircleall все объекты попавшие в эту зону и проверять наличие слуха у них" +
-            "и вызывать метод что тип они игрока усылашил а в нем событие запускать");
+        player.Shooted += OnPlayerShooted;
+    }
+
+    public void StopReactToSound(PlayerCombat player)
+    {
+        player.Shooted -= OnPlayerShooted;
+    }
+
+    private void OnPlayerShooted(Weapon playerWeapon)
+    {
+        TargetDetected?.Invoke();
     }
 }

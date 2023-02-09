@@ -12,11 +12,13 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Collider2D _collider;
     [SerializeField] private float _fireRate;
     [SerializeField] private int _bulletsCount;
+    [SerializeField] private AudioClip _shootSFX;
 
     private Coroutine _internalReloadingCoroutine;
     private WaitForSeconds _fireRateDelay;
 
     public int BulletsCount => _bulletsCount;
+    public AudioClip ShootSFX => _shootSFX;
 
     private const int SecondsInMinutes = 60;
 

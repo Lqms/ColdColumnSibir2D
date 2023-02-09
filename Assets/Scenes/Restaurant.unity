@@ -20260,6 +20260,7 @@ GameObject:
   - component: {fileID: 681096511}
   - component: {fileID: 681096512}
   - component: {fileID: 681096513}
+  - component: {fileID: 681096514}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -20336,6 +20337,7 @@ MonoBehaviour:
   _movement: {fileID: 681096510}
   _combat: {fileID: 681096509}
   _collisionHandler: {fileID: 681096511}
+  _soundManager: {fileID: 681096514}
   _health: {fileID: 681096512}
 --- !u!4 &681096507
 Transform:
@@ -20424,6 +20426,18 @@ CircleCollider2D:
   m_Offset: {x: -0.002214849, y: -0.026577324}
   serializedVersion: 2
   m_Radius: 0.4047646
+--- !u!114 &681096514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681096496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0cf96cf9d05846419fe5c0a18059091, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &690249426
 GameObject:
   m_ObjectHideFlags: 0
@@ -20879,6 +20893,7 @@ MonoBehaviour:
   _collider: {fileID: 995711899}
   _fireRate: 600
   _bulletsCount: 50
+  _shootSFX: {fileID: 0}
 --- !u!114 &995711906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21102,6 +21117,7 @@ MonoBehaviour:
   _collider: {fileID: 1245558238}
   _fireRate: 500
   _bulletsCount: 30
+  _shootSFX: {fileID: 8300000, guid: d279893434418a144b0fffebca7db896, type: 3}
 --- !u!212 &1245558241
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21298,6 +21314,7 @@ MonoBehaviour:
   _collider: {fileID: 1479918549}
   _fireRate: 600
   _bulletsCount: 100
+  _shootSFX: {fileID: 0}
 --- !u!114 &1479918553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25262,6 +25279,7 @@ MonoBehaviour:
   _collider: {fileID: 3169638098922893726}
   _fireRate: 500
   _bulletsCount: 250
+  _shootSFX: {fileID: 0}
 --- !u!61 &3169638098922893726
 BoxCollider2D:
   m_ObjectHideFlags: 0
