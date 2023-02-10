@@ -17,5 +17,5 @@ MonoBehaviour:
   _shootSFX: {fileID: 8300000, guid: ed58fa9b62f495341888b0b7cd98ed4e, type: 3}
   _sprite: {fileID: 21300000, guid: c136bcfc15239c24581d2c96aa1aa6d0, type: 2}
   _clip: {fileID: 6483120376558652094, guid: cd4ed56dfbfe7ae4188174ae6d005c6c, type: 3}
-  _bullet: {fileID: 6266888124023971755, guid: 469cf5185dec8c548b1559988b3e7310, type: 3}
+  _bullet: {fileID: 6266888124023971755, guid: 94be5bbdec9f4a4459fd93c39e2974b8, type: 3}
   _maxBullets: 30

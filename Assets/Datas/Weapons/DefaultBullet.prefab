@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2943653565157535749}
   - component: {fileID: 3588962646167315165}
   m_Layer: 0
-  m_Name: UziBullet
+  m_Name: DefaultBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
