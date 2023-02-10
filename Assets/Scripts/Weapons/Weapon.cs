@@ -38,19 +38,8 @@ public class Weapon : MonoBehaviour
 
     public bool TryShoot(Vector2 lookDirection)
     {
-        if (_internalReloadingCoroutine != null)
-        {
-            print("internal reloading");
+        if (_internalReloadingCoroutine != null || Clip.TryGetBullet(out Bullet bullet) == false)
             return false;
-        }
-
-        if (Clip.TryGetBullet(out Bullet bullet) == false)
-        {
-            print("no ammo");
-            return false;
-        }
-
-        print("pah");
 
         float bulletRotationZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
         bullet.Init(lookDirection, _shootPoint.position, bulletRotationZ);

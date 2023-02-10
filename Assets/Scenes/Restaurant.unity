@@ -20272,6 +20272,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &661690924 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2000860175251629992, guid: d397e678e4b24954ca98c0f084d7a97c, type: 3}
+  m_PrefabInstance: {fileID: 367684275}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96baca8487e856c4ca4a0cc0ccca09ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &681096496
 GameObject:
   m_ObjectHideFlags: 0
@@ -24930,7 +24941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54771c3b80d89a645a1a5ef3d78df674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weapon: {fileID: 0}
+  _weapon: {fileID: 661690924}
   _weaponPoint: {fileID: 124377923}
 --- !u!212 &3169638098527073388
 SpriteRenderer:

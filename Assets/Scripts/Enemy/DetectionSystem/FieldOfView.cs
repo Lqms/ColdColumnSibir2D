@@ -59,7 +59,6 @@ public class FieldOfView : MonoBehaviour
     {
         while (true)
         {
-            print("Detecting");
             DetectPlayer();
             yield return null;
         }
