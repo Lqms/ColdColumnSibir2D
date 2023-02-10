@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
 
     private void OnPlayerDetected()
     {
-        Destroy(_detectionSystem.gameObject);
+        _detectionSystem.gameObject.SetActive(false);
         _stateMachine.SwitchState(States.Combat);
     }
 }

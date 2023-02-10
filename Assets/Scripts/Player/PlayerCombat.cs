@@ -9,8 +9,10 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private Transform _weaponPoint;
     [SerializeField] private Weapon _currentWeapon;
 
+    public Weapon CurrentWeapon => _currentWeapon;
+
     public event UnityAction<int> BulletsChanged;
-    public event UnityAction<Weapon> Shooted;
+    public event UnityAction Shooted;
 
     private void Start()
     {
@@ -27,7 +29,7 @@ public class PlayerCombat : MonoBehaviour
             return;
 
         BulletsChanged?.Invoke(_currentWeapon.BulletsCount);
-        Shooted?.Invoke(_currentWeapon);
+        Shooted?.Invoke();
     }
 
     public void TryThrowWeapon()

@@ -34,9 +34,9 @@ public class Player : MonoBehaviour
         _health.Overed -= OnHealthOvered;
     }
 
-    private void OnShooted(Weapon weapon)
+    private void OnShooted()
     {
-        _soundManager.PlaySound(weapon.ShootSFX);
+        _soundManager.PlaySound(_combat.CurrentWeapon.ShootSFX);
     }
 
     private void OnMoveKeyPressing(Vector2 direction)

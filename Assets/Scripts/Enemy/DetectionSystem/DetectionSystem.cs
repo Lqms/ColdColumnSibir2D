@@ -3,62 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(FieldOfHearing))]
-[RequireComponent(typeof(FieldOfView))]
-[RequireComponent(typeof(Collider2D))]
 public class DetectionSystem : MonoBehaviour
 {
+    [Header("Hearing")]
     [SerializeField] private FieldOfHearing _fieldOfHearing;
+    [SerializeField] private float _hearingRadius;
+
+    [Header("Vision")]
     [SerializeField] private FieldOfView _fieldOfView;
+    [SerializeField] private float _viewRadius = 10;
+    [SerializeField] private float _viewAngle = 180;
+    [SerializeField] private LayerMask _playerMask;
+    [SerializeField] private LayerMask _obstacleMask;
 
     public event UnityAction PlayerDetected;
 
     private void OnEnable()
     {
-        _fieldOfHearing.TargetDetected += OnTargetDetected;
-        _fieldOfView.TargetDetected += OnTargetDetected;
+        _fieldOfHearing.PlayerDetected += OnPlayerDetected;
+        _fieldOfView.PlayerDetected += OnPlayerDetected;
     }
 
     private void OnDisable()
     {
-        _fieldOfHearing.TargetDetected -= OnTargetDetected;
-        _fieldOfView.TargetDetected -= OnTargetDetected;
+        _fieldOfHearing.PlayerDetected -= OnPlayerDetected;
+        _fieldOfView.PlayerDetected -= OnPlayerDetected;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Start()
     {
-        if (collision.TryGetComponent(out PlayerCombat player))
-        {
-            SwitchHearingState(true);
-            SwitchVisionState(true);
-
-            _fieldOfHearing.StartReactToSound(player);
-        }
+        _fieldOfView.Init(_viewRadius, _viewAngle, _playerMask, _obstacleMask);
+        _fieldOfHearing.Init(_hearingRadius);
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent(out PlayerCombat player))
-        {
-            SwitchHearingState(false);
-            SwitchVisionState(false);
-
-            _fieldOfHearing.StopReactToSound(player);
-        }
-    }
-
-    private void OnTargetDetected()
+    private void OnPlayerDetected()
     {
         PlayerDetected?.Invoke();
     }
 
     public void SwitchHearingState(bool newState)
     {
-        _fieldOfHearing.enabled = newState;
+        _fieldOfHearing.gameObject.SetActive(newState);
     }
 
     public void SwitchVisionState(bool newState)
     {
-        _fieldOfView.enabled = newState;
+        _fieldOfView.gameObject.SetActive(newState);
     }
 }
