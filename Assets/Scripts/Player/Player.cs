@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
 
     private void OnShooted()
     {
-        _soundManager.PlaySound(_combat.CurrentWeapon.ShootSFX);
+        _soundManager.PlaySound(_combat.CurrentWeapon.Data.ShootSFX);
     }
 
     private void OnMoveKeyPressing(Vector2 direction)

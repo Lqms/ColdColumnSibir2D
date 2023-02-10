@@ -1,47 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-[RequireComponent(typeof(Clip))]
-[RequireComponent(typeof(Collider2D))]
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private Clip _clip;
+    [SerializeField] private WeaponData _data;
     [SerializeField] private Transform _shootPoint;
-    [SerializeField] private Collider2D _collider;
-    [SerializeField] private float _fireRate;
-    [SerializeField] private int _bulletsCount;
-    [SerializeField] private AudioClip _shootSFX;
-
+    
+    private BoxCollider2D _collider;
     private Coroutine _internalReloadingCoroutine;
     private WaitForSeconds _fireRateDelay;
 
-    public int BulletsCount => _bulletsCount;
-    public AudioClip ShootSFX => _shootSFX;
+    public WeaponData Data => _data;
+    public Clip Clip { get; private set; }
 
-    private const int SecondsInMinutes = 60;
+    private const int SecondsInMinute = 60;
 
-    private void Start()
+    private void Awake()
     {
-        _fireRateDelay = new WaitForSeconds(SecondsInMinutes / _fireRate);
-    }
+        Clip = Instantiate(Data.Clip, transform);
+        Clip.Init(Data.Bullet, Data.MaxBullets);
 
-    private void OnValidate()
-    {
-        _fireRateDelay = new WaitForSeconds(SecondsInMinutes / _fireRate);
+        _collider = gameObject.AddComponent<BoxCollider2D>();
+        _collider.isTrigger = false;
+
+        var spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
+        spriteRenderer.sprite = Data.Sprite;
+
+        _collider.offset = new Vector2(0, 0);
+        _collider.size = new Vector3(spriteRenderer.bounds.size.x / transform.lossyScale.x,
+        spriteRenderer.bounds.size.y / transform.lossyScale.y,
+        spriteRenderer.bounds.size.z / transform.lossyScale.z);
+
+        _fireRateDelay = new WaitForSeconds(SecondsInMinute / Data.FireRate);
+        gameObject.name = Data.name;
     }
 
     public bool TryShoot(Vector2 lookDirection)
     {
-        if (_internalReloadingCoroutine != null || _bulletsCount <= 0)
+        if (_internalReloadingCoroutine != null)
+        {
+            print("internal reloading");
             return false;
+        }
+
+        if (Clip.TryGetBullet(out Bullet bullet) == false)
+        {
+            print("no ammo");
+            return false;
+        }
+
+        print("pah");
 
         float bulletRotationZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-        var bullet = _clip.GetBullet();
         bullet.Init(lookDirection, _shootPoint.position, bulletRotationZ);
 
-        _bulletsCount--;
         _internalReloadingCoroutine = StartCoroutine(InternalReloading());
 
         return true;

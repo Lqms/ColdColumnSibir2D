@@ -17,7 +17,7 @@ public class PlayerCombat : MonoBehaviour
     private void Start()
     {
         if (_currentWeapon != null)
-            BulletsChanged?.Invoke(_currentWeapon.BulletsCount);
+            BulletsChanged?.Invoke(_currentWeapon.Clip.BulletsLeft);
     }
 
     public void TryShoot(Vector2 direction)
@@ -28,7 +28,7 @@ public class PlayerCombat : MonoBehaviour
         if (_currentWeapon.TryShoot(direction) == false)
             return;
 
-        BulletsChanged?.Invoke(_currentWeapon.BulletsCount);
+        BulletsChanged?.Invoke(_currentWeapon.Clip.BulletsLeft);
         Shooted?.Invoke();
     }
 
@@ -51,6 +51,6 @@ public class PlayerCombat : MonoBehaviour
         _currentWeapon = weapon;
         _currentWeapon.OnPickUp(_weaponPoint);
 
-        BulletsChanged?.Invoke(_currentWeapon.BulletsCount);
+        BulletsChanged?.Invoke(_currentWeapon.Clip.BulletsLeft);
     }
 }
