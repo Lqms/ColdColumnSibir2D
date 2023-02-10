@@ -9,6 +9,7 @@ public class CombatState : State
     [SerializeField] private Transform _weaponPoint;
 
     private Vector3 _rayOffset = new Vector3(0.05f, 0, 0);
+    private float _rangeOffset = 0.5f;
 
     private void Update()
     {
@@ -28,7 +29,7 @@ public class CombatState : State
     private bool CheckShootingPossibility()
     {
         Ray2D ray = new Ray2D(_weapon.transform.position - _rayOffset, _weapon.transform.right);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 12); // 12 - range оружия
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, _weapon.Data.FireRange - _rangeOffset);
 
         Debug.DrawRay(ray.origin, ray.direction * 12, Color.green);
 

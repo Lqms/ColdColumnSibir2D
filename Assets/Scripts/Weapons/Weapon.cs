@@ -42,7 +42,7 @@ public class Weapon : MonoBehaviour
             return false;
 
         float bulletRotationZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-        bullet.Init(lookDirection, _shootPoint.position, bulletRotationZ);
+        bullet.Init(lookDirection, _shootPoint.position, bulletRotationZ, Data.FireRange);
 
         _internalReloadingCoroutine = StartCoroutine(InternalReloading());
 
