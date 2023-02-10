@@ -20301,7 +20301,6 @@ GameObject:
   - component: {fileID: 681096511}
   - component: {fileID: 681096512}
   - component: {fileID: 681096513}
-  - component: {fileID: 681096514}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -20378,7 +20377,6 @@ MonoBehaviour:
   _movement: {fileID: 681096510}
   _combat: {fileID: 681096509}
   _collisionHandler: {fileID: 681096511}
-  _soundManager: {fileID: 681096514}
   _health: {fileID: 681096512}
 --- !u!4 &681096507
 Transform:
@@ -20467,18 +20465,6 @@ CircleCollider2D:
   m_Offset: {x: -0.002214849, y: -0.026577324}
   serializedVersion: 2
   m_Radius: 0.4047646
---- !u!114 &681096514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 681096496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0cf96cf9d05846419fe5c0a18059091, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &690249426
 GameObject:
   m_ObjectHideFlags: 0
@@ -24748,6 +24734,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2000860175251629992, guid: d397e678e4b24954ca98c0f084d7a97c, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: 006959f2fe5c965458cebf183f66d2e8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d397e678e4b24954ca98c0f084d7a97c, type: 3}
 --- !u!195 &3169638098219882051
@@ -24863,7 +24853,7 @@ MonoBehaviour:
   _stateMachine: {fileID: 3169638098219882115}
   _health: {fileID: 3169638098219882111}
   _agent: {fileID: 3169638098219882051}
-  _weapon: {fileID: 0}
+  _weapon: {fileID: 661690924}
   _spriteRenderer: {fileID: 3169638098527073388}
   _player: {fileID: 681096506}
   _detectionSystem: {fileID: 1907815746}

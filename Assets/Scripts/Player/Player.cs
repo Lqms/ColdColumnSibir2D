@@ -9,7 +9,6 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerMovement _movement;
     [SerializeField] private PlayerCombat _combat;
     [SerializeField] private PlayerCollisionHandler _collisionHandler;
-    [SerializeField] private PlayerSoundManager _soundManager;
     [SerializeField] private Health _health;
 
     private void OnEnable()
@@ -19,7 +18,6 @@ public class Player : MonoBehaviour
         PlayerInput.ThrowGunKeyPressed += OnThrowGunKeyPressed;
         PlayerInput.InteractKeyPressed += OnInteractKeyPressed;
 
-        _combat.Shooted += OnShooted;
         _health.Overed += OnHealthOvered;
     }
 
@@ -30,13 +28,7 @@ public class Player : MonoBehaviour
         PlayerInput.ThrowGunKeyPressed -= OnThrowGunKeyPressed;
         PlayerInput.InteractKeyPressed -= OnInteractKeyPressed;
 
-        _combat.Shooted -= OnShooted;
         _health.Overed -= OnHealthOvered;
-    }
-
-    private void OnShooted()
-    {
-        _soundManager.PlaySound(_combat.CurrentWeapon.Data.ShootSFX);
     }
 
     private void OnMoveKeyPressing(Vector2 direction)
