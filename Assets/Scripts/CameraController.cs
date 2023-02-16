@@ -6,7 +6,9 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private Camera _main;
+    [SerializeField] private Crosshair _crosshair;
 
+    private Transform _baseParent;
     private Vector3 _baseOffset;
 
     private void OnEnable()
@@ -21,19 +23,22 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        _baseOffset = transform.position;
+        _baseParent = transform.parent;
+        _baseOffset = transform.localPosition;
     }
 
+    // Переделать за счет виртуальной камеры (Cinemachine)
     private void OnLookKeyPressed(bool pressed)
     {
         if (pressed)
         {
-            Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            _main.transform.position = mouseWorldPosition;
+            _main.transform.parent = _crosshair.transform;
+            _main.transform.position = _crosshair.transform.position;
         }
         else
         {
-            _main.transform.position = _baseOffset;
+            _main.transform.parent = _baseParent;
+            _main.transform.localPosition = _baseOffset;
         }
     }
 }
