@@ -5,14 +5,14 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private float _max;
-    [SerializeField] private float _current;
+    private const float Max = 1;
+    private float _current;
 
     public event UnityAction Overed;
 
     private void Start()
     {
-        _current = _max;
+        _current = Max;
     }
 
     public void ApplyDamage(float amount)

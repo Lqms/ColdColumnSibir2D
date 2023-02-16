@@ -7,14 +7,16 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rigidbody;
 
-    private float _speed;
     private Coroutine _coroutine;
+    private int _damageReduceCoeff;
+
+    private const float BaseDamage = 1;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Health health))
         {
-            health.ApplyDamage(1);
+            health.ApplyDamage(BaseDamage / _damageReduceCoeff);
             gameObject.SetActive(false);
         }
 
@@ -24,14 +26,14 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void Init(Vector2 direction, Vector3 position, float rotationZ, float fireRange, float shotPower)
+    public void Init(Vector2 direction, Vector3 position, float rotationZ, float fireRange, float shotPower, int damageReduceCoeff)
     {
         _rigidbody.velocity = Vector2.zero;
         transform.position = position;
         transform.rotation = Quaternion.Euler(0, 0, rotationZ);
-        _speed = shotPower;
+        _damageReduceCoeff = damageReduceCoeff;
 
-        _rigidbody.velocity = direction.normalized * _speed;
+        _rigidbody.velocity = direction.normalized * shotPower;
         
         if (_coroutine != null)
             StopCoroutine(_coroutine);

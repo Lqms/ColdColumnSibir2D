@@ -13,6 +13,7 @@ public class WeaponData : ScriptableObject
     [SerializeField] private Sprite _sprite;
     [SerializeField] private Clip _clip;
     [SerializeField] private Bullet _bullet;
+    [SerializeField][Range(1, 4)] private int _bulletDamageReduceCoeff = 1;
 
     public float FireRate => _fireRate;
     public float FireRange => _fireRange;
@@ -22,4 +23,5 @@ public class WeaponData : ScriptableObject
     public Sprite Sprite => _sprite;
     public Clip Clip => _clip;
     public Bullet Bullet => _bullet;
+    public int BulletDamageReduceCoeff => _bulletDamageReduceCoeff;
 }

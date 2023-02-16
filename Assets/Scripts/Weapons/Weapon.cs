@@ -42,7 +42,7 @@ public class Weapon : MonoBehaviour
             return false;
 
         float bulletRotationZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-        bullet.Init(lookDirection, _shootPoint.position, bulletRotationZ, Data.FireRange, Data.ShotPower);
+        bullet.Init(lookDirection, _shootPoint.position, bulletRotationZ, Data.FireRange, Data.ShotPower, Data.BulletDamageReduceCoeff);
 
         _internalReloadingCoroutine = StartCoroutine(InternalReloading());
         AudioSource.PlayClipAtPoint(Data.ShootSFX, _shootPoint.position);
