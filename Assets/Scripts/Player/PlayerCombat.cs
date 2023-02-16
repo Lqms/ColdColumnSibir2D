@@ -9,8 +9,6 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private Transform _weaponPoint;
     [SerializeField] private Weapon _currentWeapon;
 
-    public Weapon CurrentWeapon => _currentWeapon;
-
     public event UnityAction<int> BulletsChanged;
     public event UnityAction Shooted;
 

@@ -45,7 +45,7 @@ public class Weapon : MonoBehaviour
         bullet.Init(lookDirection, _shootPoint.position, bulletRotationZ, Data.FireRange, Data.ShotPower);
 
         _internalReloadingCoroutine = StartCoroutine(InternalReloading());
-        AudioSource.PlayClipAtPoint(Data.ShootSFX, transform.position);
+        AudioSource.PlayClipAtPoint(Data.ShootSFX, _shootPoint.position);
 
         return true;
     }

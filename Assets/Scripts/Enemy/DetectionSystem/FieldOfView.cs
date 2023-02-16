@@ -6,13 +6,11 @@ using UnityEngine.Events;
 [RequireComponent(typeof(BoxCollider2D))]
 public class FieldOfView : MonoBehaviour
 {
-    [SerializeField] private BoxCollider2D _collider;
-
-    private float _viewRadius = 10;
+    private BoxCollider2D _collider;
     private float _viewAngle = 180;
     private LayerMask _playerMask;
     private LayerMask _obstacleMask;
-    private float _baseViewRadius;
+    private Vector2 _baseAreaSize;
 
     public event UnityAction PlayerDetected;
 
@@ -32,27 +30,26 @@ public class FieldOfView : MonoBehaviour
         }
     }
 
-    public void Init(float viewRadius, float viewAngle, LayerMask playerMask, LayerMask obstacleMask)
+    public void Init(Vector2 areaSize, float viewAngle, LayerMask playerMask, LayerMask obstacleMask)
     {
-        _viewRadius = viewRadius;
+        _collider = GetComponent<BoxCollider2D>();
+        _baseAreaSize = areaSize;
+        _collider.size = areaSize;
+        _collider.isTrigger = true;
+
         _viewAngle = viewAngle;
         _playerMask = playerMask;
         _obstacleMask = obstacleMask;
-        _baseViewRadius = _viewRadius;
-        _collider.isTrigger = true;
-        _collider.size = new Vector2(_baseViewRadius, _baseViewRadius);
     }
 
-    public void SetNewRadius(float value)
+    public void SetNewAreaSize(Vector2 value)
     {
-        _viewRadius = value;
-        _collider.size = new Vector2(value, value);
+        _collider.size = value;
     }
 
-    public void ResetRadius()
+    public void ResetAreaSize()
     {
-        _viewRadius = _baseViewRadius;
-        _collider.size = new Vector2(_baseViewRadius, _baseViewRadius);
+        _collider.size = _baseAreaSize;
     }
 
     private IEnumerator Viewing()
@@ -66,7 +63,7 @@ public class FieldOfView : MonoBehaviour
 
     private void DetectPlayer()
     {
-        var targetsInViewRadius = Physics2D.OverlapCircleAll(transform.position, _viewRadius, _playerMask);
+        var targetsInViewRadius = Physics2D.OverlapCircleAll(transform.position, _baseAreaSize.x, _playerMask);
 
         foreach (var target in targetsInViewRadius)
         {

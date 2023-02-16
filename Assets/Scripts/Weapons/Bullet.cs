@@ -10,11 +10,6 @@ public class Bullet : MonoBehaviour
     private float _speed;
     private Coroutine _coroutine;
 
-    private void OnBecameInvisible()
-    {
-        gameObject.SetActive(false);
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Health health))

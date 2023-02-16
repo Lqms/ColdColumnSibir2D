@@ -8,18 +8,18 @@ public class WeaponData : ScriptableObject
     [SerializeField] private float _fireRate;
     [SerializeField] private float _fireRange;
     [SerializeField] private float _shotPower;
+    [SerializeField] private int _maxBullets;
     [SerializeField] private AudioClip _shootSFX;
     [SerializeField] private Sprite _sprite;
     [SerializeField] private Clip _clip;
     [SerializeField] private Bullet _bullet;
-    [SerializeField] private int _maxBullets;
 
     public float FireRate => _fireRate;
     public float FireRange => _fireRange;
     public float ShotPower => _shotPower;
+    public int MaxBullets => _maxBullets;
     public AudioClip ShootSFX => _shootSFX;
     public Sprite Sprite => _sprite;
     public Clip Clip => _clip;
     public Bullet Bullet => _bullet;
-    public int MaxBullets => _maxBullets;
 }

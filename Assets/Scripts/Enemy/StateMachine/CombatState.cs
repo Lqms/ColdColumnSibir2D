@@ -31,7 +31,7 @@ public class CombatState : State
         Ray2D ray = new Ray2D(_weapon.transform.position - _rayOffset, _weapon.transform.right);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, _weapon.Data.FireRange - _rangeOffset);
 
-        Debug.DrawRay(ray.origin, ray.direction * 12, Color.green);
+        // Debug.DrawRay(ray.origin, ray.direction * 12, Color.green);
 
         return hit.collider != null && hit.collider.TryGetComponent(out Player player);
     }
