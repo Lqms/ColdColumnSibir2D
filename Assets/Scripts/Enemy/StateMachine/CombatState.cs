@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.AI;
 
 public class CombatState : State
 {
     [SerializeField] private Weapon _weapon;
-    [SerializeField] private Transform _weaponPoint;
 
-    private Vector3 _rayOffset = new Vector3(0.05f, 0, 0);
     private float _rangeOffset = 0.5f;
 
     private void Update()
@@ -26,12 +25,11 @@ public class CombatState : State
         }
     }
 
+    // либо переделать чтобы –ейкастќлл кидалс€ и если попалс€ обстакл, то фолс
     private bool CheckShootingPossibility()
     {
-        Ray2D ray = new Ray2D(_weapon.transform.position - _rayOffset, _weapon.transform.right);
+        Ray2D ray = new Ray2D(_weapon.ShootPoint.position, _weapon.ShootPoint.right);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, _weapon.Data.FireRange - _rangeOffset);
-
-        // Debug.DrawRay(ray.origin, ray.direction * 12, Color.green);
 
         return hit.collider != null && hit.collider.TryGetComponent(out Player player);
     }

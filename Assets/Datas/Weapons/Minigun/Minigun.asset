@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Minigun
   m_EditorClassIdentifier: 
   _fireRate: 500
-  _fireRange: 9
+  _fireRange: 10
   _shotPower: 40
   _maxBullets: 150
   _shootSFX: {fileID: 8300000, guid: 3c515f7bc6ea72b4a90e969f1425cf9e, type: 3}
