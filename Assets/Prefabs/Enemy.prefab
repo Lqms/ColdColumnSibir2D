@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 49976262199158925}
   - component: {fileID: 49976262199158924}
   - component: {fileID: 49976262199158922}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,8 +112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2a44e40072cc1d45bebecdd3dbda895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _max: 2
-  _current: 2
 --- !u!114 &49976262199158920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,6 +161,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weapon: {fileID: 3497370092165329683}
   _weaponPoint: {fileID: 3120251459846546763}
+  _playerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &49976262199158924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 49976262611290725}
   - component: {fileID: 49976262611290724}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: BodySprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +291,7 @@ GameObject:
   - component: {fileID: 3120251458752621440}
   - component: {fileID: 3120251458752621442}
   - component: {fileID: 3120251458752621441}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: FieldOfView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361,7 +362,7 @@ GameObject:
   - component: {fileID: 3120251459018474287}
   - component: {fileID: 3120251459018474273}
   - component: {fileID: 3120251459018474272}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: FieldOfHearing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3120251459624700745}
   - component: {fileID: 3120251459624700746}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: DetectionSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -487,7 +488,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3120251459846546763}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: WeaponPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -520,6 +521,10 @@ PrefabInstance:
     - target: {fileID: 2000860175251629972, guid: d397e678e4b24954ca98c0f084d7a97c, type: 3}
       propertyPath: m_Name
       value: Weapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000860175251629972, guid: d397e678e4b24954ca98c0f084d7a97c, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2000860175251629973, guid: d397e678e4b24954ca98c0f084d7a97c, type: 3}
       propertyPath: m_RootOrder

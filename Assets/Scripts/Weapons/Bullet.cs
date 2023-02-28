@@ -15,24 +15,20 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Health health))
-        {
             health.ApplyDamage(BaseDamage / _damageReduceCoeff);
-            gameObject.SetActive(false);
-        }
 
-        if (collision.TryGetComponent(out Obstacle obstacle))
-        {
-            gameObject.SetActive(false);
-        }
+        print(collision.gameObject.name);
+        gameObject.SetActive(false);
     }
 
     public void Init(Vector2 direction, Vector3 position, float rotationZ, float fireRange, float shotPower, int damageReduceCoeff)
     {
-        _rigidbody.velocity = Vector2.zero;
-        transform.position = position;
-        transform.rotation = Quaternion.Euler(0, 0, rotationZ);
         _damageReduceCoeff = damageReduceCoeff;
 
+        transform.position = position;
+        transform.rotation = Quaternion.Euler(0, 0, rotationZ);
+
+        _rigidbody.velocity = Vector2.zero;
         _rigidbody.velocity = direction.normalized * shotPower;
         
         if (_coroutine != null)

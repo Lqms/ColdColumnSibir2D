@@ -11,6 +11,7 @@ public class Weapon : MonoBehaviour
     private Coroutine _internalReloadingCoroutine;
     private WaitForSeconds _fireRateDelay;
 
+    public Transform ShootPoint => _shootPoint;
     public WeaponData Data => _data;
     public Clip Clip { get; private set; }
 
@@ -30,7 +31,7 @@ public class Weapon : MonoBehaviour
         _collider.offset = new Vector2(0, 0);
         _collider.size = new Vector3(spriteRenderer.bounds.size.x / transform.lossyScale.x,
         spriteRenderer.bounds.size.y / transform.lossyScale.y,
-        spriteRenderer.bounds.size.z / transform.lossyScale.z);
+        spriteRenderer.bounds.size.z / transform.lossyScale.z) + new Vector3(0.1f, 0.1f, 0.1f);
 
         _fireRateDelay = new WaitForSeconds(SecondsInMinute / Data.FireRate);
         gameObject.name = Data.name;
