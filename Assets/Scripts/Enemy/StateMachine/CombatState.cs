@@ -8,9 +8,6 @@ public class CombatState : State
     [SerializeField] private Weapon _weapon;
     [SerializeField] private Transform _weaponPoint;
 
-    private Vector3 _rayOffset = new Vector3(0.05f, 0, 0);
-    private float _rangeOffset = 0.5f;
-
     private void Update()
     {
         TurnToTarget(Player.transform.position);
@@ -28,11 +25,24 @@ public class CombatState : State
 
     private bool CheckShootingPossibility()
     {
-        Ray2D ray = new Ray2D(_weapon.transform.position - _rayOffset, _weapon.transform.right);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, _weapon.Data.FireRange - _rangeOffset);
+        Vector3 rayOffset = new Vector3(0.05f, 0, 0);
+        float rangeOffset = 0.5f;
+
+        // Ray2D ray = new Ray2D(_weapon.transform.position - rayOffset, _weapon.transform.right);
+        Ray2D ray = new Ray2D(_weapon.transform.position, _weapon.transform.right);
+        // RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, _weapon.Data.FireRange - rangeOffset);
+        var hits = Physics2D.BoxCastAll(ray.origin, new Vector2(0.1f, 0.1f), 90, ray.direction, _weapon.Data.FireRange - rangeOffset);
 
         // Debug.DrawRay(ray.origin, ray.direction * 12, Color.green);
 
-        return hit.collider != null && hit.collider.TryGetComponent(out Player player);
+        var results = "";
+
+        foreach (var hit in hits)
+            results += hit.collider.gameObject.name + " ";
+
+        print(results);
+
+        return hits.Length == 1 && hits[0].collider.TryGetComponent(out Player player);
+        // return hit.collider != null && hit.collider.TryGetComponent(out Player player);
     }
 }
