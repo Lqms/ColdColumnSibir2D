@@ -160,10 +160,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weapon: {fileID: 3497370092165329683}
-  _weaponPoint: {fileID: 3120251459846546763}
-  _playerMask:
+  _obstacleMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 64
 --- !u!114 &49976262199158924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,7 +290,7 @@ GameObject:
   - component: {fileID: 3120251458752621440}
   - component: {fileID: 3120251458752621442}
   - component: {fileID: 3120251458752621441}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: FieldOfView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +361,7 @@ GameObject:
   - component: {fileID: 3120251459018474287}
   - component: {fileID: 3120251459018474273}
   - component: {fileID: 3120251459018474272}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: FieldOfHearing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -524,7 +523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2000860175251629972, guid: d397e678e4b24954ca98c0f084d7a97c, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2000860175251629973, guid: d397e678e4b24954ca98c0f084d7a97c, type: 3}
       propertyPath: m_RootOrder

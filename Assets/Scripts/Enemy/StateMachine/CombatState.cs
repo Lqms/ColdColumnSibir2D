@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class CombatState : State
 {
     [SerializeField] private Weapon _weapon;
+    [SerializeField] private LayerMask _obstacleMask;
 
     private void Update()
     {
@@ -25,26 +26,18 @@ public class CombatState : State
 
     private bool CheckShootingPossibility()
     {
-        Vector3 rayOffset = new Vector3(0.05f, 0, 0);
         float rangeOffset = 0.5f;
-
-        Ray2D ray = new Ray2D(_weapon.transform.position - rayOffset, _weapon.transform.right);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, _weapon.Data.FireRange - rangeOffset);
-
-        return hit.collider != null && hit.collider.TryGetComponent(out Player player);
+        Vector3 rayOffset = new Vector3(0.05f, 0, 0);
 
         /*
-        Ray2D ray = new Ray2D(_weapon.transform.position, _weapon.transform.right);
-        var hits = Physics2D.BoxCastAll(ray.origin, new Vector2(0.1f, 0.1f), 90, ray.direction, _weapon.Data.FireRange - rangeOffset); 
-         
-        var results = "";
+        var boxCastInfo = Physics2D.BoxCast(_weapon.transform.position, new Vector2(0.1f, 0.1f), 90, _weapon.transform.right, _weapon.Data.FireRange - rangeOffset, _obstacleMask);
 
-        foreach (var hit in hits)
-            results += hit.collider.gameObject.name + " ";
-
-        print(results);
-
-        return hits.Length == 1 && hits[0].collider.TryGetComponent(out Player player);
+        if (boxCastInfo.collider == null)
+            return false;
         */
+
+        RaycastHit2D raycastInfo = Physics2D.Raycast(_weapon.transform.position - rayOffset, _weapon.transform.right, _weapon.Data.FireRange - rangeOffset);
+
+        return raycastInfo.collider != null && raycastInfo.collider.TryGetComponent(out Player player);
     }
 }
