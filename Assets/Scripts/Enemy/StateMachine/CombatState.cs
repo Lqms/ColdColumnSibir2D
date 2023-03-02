@@ -7,7 +7,6 @@ using UnityEngine.AI;
 public class CombatState : State
 {
     [SerializeField] private Weapon _weapon;
-    [SerializeField] private LayerMask _obstacleMask;
 
     private void Update()
     {
@@ -27,17 +26,9 @@ public class CombatState : State
     private bool CheckShootingPossibility()
     {
         float rangeOffset = 0.5f;
-        Vector3 rayOffset = new Vector3(0.05f, 0, 0);
-
-        /*
-        var boxCastInfo = Physics2D.BoxCast(_weapon.transform.position, new Vector2(0.1f, 0.1f), 90, _weapon.transform.right, _weapon.Data.FireRange - rangeOffset, _obstacleMask);
-
-        if (boxCastInfo.collider == null)
-            return false;
-        */
-
-        RaycastHit2D raycastInfo = Physics2D.Raycast(_weapon.transform.position - rayOffset, _weapon.transform.right, _weapon.Data.FireRange - rangeOffset);
-
-        return raycastInfo.collider != null && raycastInfo.collider.TryGetComponent(out Player player);
+        Ray2D ray = new Ray2D(_weapon.ShootPoint.position, _weapon.transform.right);
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, _weapon.Data.FireRange - rangeOffset);
+        Debug.DrawRay(ray.origin, ray.direction * _weapon.Data.FireRange, Color.red);
+        return (hit.collider != null && hit.collider.TryGetComponent(out Player player));
     }
 }
