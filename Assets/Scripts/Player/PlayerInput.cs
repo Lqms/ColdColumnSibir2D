@@ -89,10 +89,12 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyDown(_lookKey))
         {
             LookKeyPressed?.Invoke(true);
+            print("start look");
         }
         else if (Input.GetKeyUp(_lookKey))
         {
             LookKeyPressed?.Invoke(false);
+            print("stop look");
         }
     }
 }
