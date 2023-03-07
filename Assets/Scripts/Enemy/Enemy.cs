@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(EnemyStateMachine))]
@@ -18,6 +19,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Player _player;
     [SerializeField] private DetectionSystem _detectionSystem;
+
+    public static event UnityAction Died;
 
     private void OnEnable()
     {
@@ -42,6 +45,7 @@ public class Enemy : MonoBehaviour
     private void OnHealthOvered()
     {
         _weapon.Drop();
+        Died?.Invoke();
         Destroy(gameObject);
     }
 

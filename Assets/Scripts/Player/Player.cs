@@ -54,6 +54,6 @@ public class Player : MonoBehaviour
 
     private void OnHealthOvered()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // тут событие и Destroy() игрока, а перезапуск сцены только после нажатия R в скрипте LevelManager
     }
 }
