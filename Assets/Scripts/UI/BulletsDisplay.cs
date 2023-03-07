@@ -25,4 +25,11 @@ public class BulletsDisplay : MonoBehaviour
         else
             _bulletsDisplay.text = "no ammo";
     }
+
+
+    // for tests
+    private void Start()
+    {
+        GetComponent<Image>().color = Color.black;
+    }
 }
