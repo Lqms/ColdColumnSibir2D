@@ -1,10 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Events;
+
+public enum LevelStates
+{
+    InProgress,
+    Defeat,
+    Victory
+}
 
 public class LevelManager : MonoBehaviour
 {
+    [SerializeField] private Player _player;
+
     private int _enemiesLeft;
+
+    public event UnityAction<LevelStates> GameOver;
 
     private void Start()
     {
@@ -14,11 +27,13 @@ public class LevelManager : MonoBehaviour
     private void OnEnable()
     {
         Enemy.Died += OnEnemyDied;
+        _player.Died += OnPlayerDied;
     }
 
     private void OnDisable()
     {
         Enemy.Died -= OnEnemyDied;
+        _player.Died -= OnPlayerDied;
     }
 
     private void OnEnemyDied()
@@ -26,12 +41,18 @@ public class LevelManager : MonoBehaviour
         _enemiesLeft--;
 
         if (_enemiesLeft == 0)
-        {
-            print("win"); 
-            // нужно запустить событие, на которое реагирует LevelInfoDisplay показывая текст о том,
-            // что ты победил, аналогично сделать для проигрыша, но уже за счет события смерти игрока
-            // при победе разблокируется дверь начальная и если через нее выйти, то попадаешь в триггерную область, при входе в которую пишется текст в консоль "победа"
-            // потом тут будет смена уровня и т.д.
-        }
+            GameOver?.Invoke(LevelStates.Victory);
+    }
+
+    private void OnPlayerDied()
+    {
+        GameOver?.Invoke(LevelStates.Defeat);
+        PlayerInput.RestartKeyPressed += OnRestartKeyPressed;
+    }
+
+    private void OnRestartKeyPressed()
+    {
+        PlayerInput.RestartKeyPressed -= OnRestartKeyPressed;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

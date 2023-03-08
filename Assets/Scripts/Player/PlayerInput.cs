@@ -18,12 +18,14 @@ public class PlayerInput : MonoBehaviour
 
     [Header("Optional")]
     [SerializeField] private KeyCode _lookKey = KeyCode.LeftShift;
+    [SerializeField] private KeyCode _restartKey = KeyCode.R;
 
     public static event UnityAction<bool> LookKeyPressed;
     public static event UnityAction<Vector2> MoveKeyPressing;
     public static event UnityAction ShootKeyPressing;
     public static event UnityAction ThrowGunKeyPressed;
     public static event UnityAction InteractKeyPressed;
+    public static event UnityAction RestartKeyPressed;
 
     private void Update()
     {
@@ -32,7 +34,9 @@ public class PlayerInput : MonoBehaviour
         CheckThrowGunKey();
         CheckInteractKey();
         CheckLookKey();
+        CheckRestartKey();
     }
+
     private void CheckMovementKeys()
     {
         Vector2 direction = Vector2.zero;
@@ -95,6 +99,14 @@ public class PlayerInput : MonoBehaviour
         {
             LookKeyPressed?.Invoke(false);
             print("stop look");
+        }
+    }
+
+    private void CheckRestartKey()
+    {
+        if (Input.GetKey(_restartKey))
+        {
+            RestartKeyPressed?.Invoke();
         }
     }
 }

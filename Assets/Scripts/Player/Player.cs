@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerCombat _combat;
     [SerializeField] private PlayerCollisionHandler _collisionHandler;
     [SerializeField] private Health _health;
+
+    public event UnityAction Died;
 
     private void OnEnable()
     {
@@ -54,6 +56,7 @@ public class Player : MonoBehaviour
 
     private void OnHealthOvered()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // тут событие и Destroy() игрока, а перезапуск сцены только после нажатия R в скрипте LevelManager
+        Died?.Invoke();
+        gameObject.SetActive(false);
     }
 }
