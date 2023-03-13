@@ -160,6 +160,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weapon: {fileID: 3497370092165329683}
+  _reactionTime: 0.1
+  _accuracity: {x: 0.1, y: 0.1, z: 0}
 --- !u!114 &49976262199158924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,9 +467,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fieldOfHearing: {fileID: 3120251459018474272}
-  _hearingAreaSize: {x: 16.5, y: 8}
+  _hearingAreaSize: {x: 14, y: 6}
   _fieldOfView: {fileID: 3120251458752621441}
-  _viewAreaSize: {x: 16.5, y: 8}
+  _viewAreaSize: {x: 14, y: 6}
   _playerMask:
     serializedVersion: 2
     m_Bits: 128

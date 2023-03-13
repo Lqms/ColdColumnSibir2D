@@ -17,6 +17,11 @@ public class FieldOfHearing : MonoBehaviour
         {
             player.Shooted += OnPlayerShooted;
         }
+
+        if (collision.TryGetComponent(out Bullet bullet))
+        {
+            PlayerDetected?.Invoke();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

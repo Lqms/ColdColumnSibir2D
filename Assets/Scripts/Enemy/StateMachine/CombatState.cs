@@ -7,19 +7,33 @@ using UnityEngine.AI;
 public class CombatState : State
 {
     [SerializeField] private Weapon _weapon;
+    [SerializeField] private float _reactionTime = 0.1f;
+    [SerializeField] private Vector3 _accuracity = new Vector3(0.1f, 0.1f, 0);
 
-    private void Update()
+    private void OnEnable()
     {
-        TurnToTarget(Player.transform.position);
+        StartCoroutine(Fighting());
+    }
 
-        if (CheckShootingPossibility())
+    private IEnumerator Fighting()
+    {
+        yield return new WaitForSeconds(_reactionTime);
+
+        while (Player != null)
         {
-            Agent.SetDestination(transform.position);
-            _weapon.TryShoot(Player.transform.position - transform.position);
-        }
-        else
-        {
-            Agent.SetDestination(Player.transform.position);
+            yield return null;
+
+            TurnToTarget(Player.transform.position);
+
+            if (CheckShootingPossibility())
+            {
+                Agent.SetDestination(transform.position);
+                _weapon.TryShoot(Player.transform.position + _accuracity - transform.position);
+            }
+            else
+            {
+                Agent.SetDestination(Player.transform.position);
+            }
         }
     }
 

@@ -20,6 +20,11 @@ public class FieldOfView : MonoBehaviour
         {
             StartCoroutine(Viewing());
         }
+
+        if (collision.TryGetComponent(out Bullet bullet))
+        {
+            PlayerDetected?.Invoke();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
