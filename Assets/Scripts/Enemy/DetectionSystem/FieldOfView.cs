@@ -47,16 +47,6 @@ public class FieldOfView : MonoBehaviour
         _obstacleMask = obstacleMask;
     }
 
-    public void SetNewAreaSize(Vector2 value)
-    {
-        _collider.size = value;
-    }
-
-    public void ResetAreaSize()
-    {
-        _collider.size = _baseAreaSize;
-    }
-
     private IEnumerator Viewing()
     {
         while (true)

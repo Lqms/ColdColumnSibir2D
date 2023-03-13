@@ -40,16 +40,6 @@ public class FieldOfHearing : MonoBehaviour
         _collider.isTrigger = true;
     }
 
-    public void SetNewAreaSize(Vector2 value)
-    {
-        _collider.size = value;
-    }
-
-    public void ResetAreaSize()
-    {
-        _collider.size = _baseAreaSize;
-    }
-
     private void OnPlayerShooted()
     {
         PlayerDetected?.Invoke();

@@ -8,7 +8,7 @@ public class CombatState : State
 {
     [SerializeField] private Weapon _weapon;
     [SerializeField] private float _reactionTime = 0.1f;
-    [SerializeField] private Vector3 _accuracity = new Vector3(0.1f, 0.1f, 0);
+    [SerializeField] private float _accuracy = 1;
 
     private void OnEnable()
     {
@@ -28,7 +28,8 @@ public class CombatState : State
             if (CheckShootingPossibility())
             {
                 Agent.SetDestination(transform.position);
-                _weapon.TryShoot(Player.transform.position + _accuracity - transform.position);
+                Vector3 randomSpread = new Vector3(Random.Range(-_accuracy, _accuracy), Random.Range(-_accuracy, _accuracy), 0);
+                _weapon.TryShoot(Player.transform.position + randomSpread - transform.position);
             }
             else
             {
