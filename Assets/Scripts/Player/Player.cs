@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
         PlayerInput.ThrowGunKeyPressed += OnThrowGunKeyPressed;
         PlayerInput.InteractKeyPressed += OnInteractKeyPressed;
 
+        PlayerInput.LookKeyPressed += OnLookKeyPressed;
         _health.Overed += OnHealthOvered;
     }
 
@@ -30,7 +31,13 @@ public class Player : MonoBehaviour
         PlayerInput.ThrowGunKeyPressed -= OnThrowGunKeyPressed;
         PlayerInput.InteractKeyPressed -= OnInteractKeyPressed;
 
+        PlayerInput.LookKeyPressed -= OnLookKeyPressed;
         _health.Overed -= OnHealthOvered;
+    }
+
+    private void OnLookKeyPressed(bool isKeyDown)
+    {
+
     }
 
     private void OnMoveKeyPressing(Vector2 direction)

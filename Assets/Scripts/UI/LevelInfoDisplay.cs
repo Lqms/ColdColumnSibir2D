@@ -27,7 +27,6 @@ public class LevelInfoDisplay : MonoBehaviour
     private void OnGameOver(LevelStates state)
     {
         _levelManager.GameOver -= OnGameOver;
-
         _canvasGroup.alpha = 1;
 
         switch (state)
