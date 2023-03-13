@@ -17,7 +17,7 @@ public class LevelManager : MonoBehaviour
 
     private int _enemiesLeft;
 
-    public event UnityAction<LevelStates> GameOver;
+    public static event UnityAction<LevelStates> GameOver;
 
     private void Start()
     {

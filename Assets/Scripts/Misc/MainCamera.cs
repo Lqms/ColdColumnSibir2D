@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MainCamera : MonoBehaviour
 {
-    [SerializeField] private Transform _target;
+    [SerializeField] private Transform _player;
 
     private Coroutine _followingCoroutine;
     private Coroutine _lookingCoroutine;
@@ -13,7 +13,7 @@ public class MainCamera : MonoBehaviour
 
     private void Start()
     {
-        _followingCoroutine = StartCoroutine(FollowingTarget());
+        _followingCoroutine = StartCoroutine(FollowingTarget(_player));
     }
 
     private void OnEnable()
@@ -26,20 +26,20 @@ public class MainCamera : MonoBehaviour
         PlayerInput.LookKeyPressed -= OnLookKeyPressed;
     }
 
-    private IEnumerator FollowingTarget()
+    private IEnumerator FollowingTarget(Transform target)
     {
         while (true)
         {
-            transform.position = new Vector3(_target.position.x, _target.position.y, BasePositionZ);
+            transform.position = new Vector3(target.position.x, target.position.y, BasePositionZ);
             yield return null;
         }
     }
 
     private IEnumerator Looking()
     {
-        float sizeOfLookingArea = 0.5f;
-        Vector3 topRightPoint = transform.localPosition * sizeOfLookingArea;
-        Vector3 bottomLeftPoint = transform.localPosition * -sizeOfLookingArea;
+        float sizeOfLookingArea = 3;
+        Vector3 topRightPoint = transform.localPosition + new Vector3(sizeOfLookingArea, sizeOfLookingArea, 0);
+        Vector3 bottomLeftPoint = transform.localPosition - new Vector3(sizeOfLookingArea, sizeOfLookingArea, 0);
 
         while (true)
         {
@@ -49,22 +49,22 @@ public class MainCamera : MonoBehaviour
 
             if (transform.localPosition.y > topRightPoint.y)
             {
-                transform.localPosition = new Vector3(transform.localPosition.x, topRightPoint.y, BasePositionZ);
+                transform.position = new Vector3(transform.position.x, topRightPoint.y, BasePositionZ);
             }
 
             if (transform.localPosition.y < bottomLeftPoint.y)
             {
-                transform.localPosition = new Vector3(transform.localPosition.x, bottomLeftPoint.y, BasePositionZ);
+                transform.position = new Vector3(transform.position.x, bottomLeftPoint.y, BasePositionZ);
             }
 
             if (transform.localPosition.x > topRightPoint.x)
             {
-                transform.localPosition = new Vector3(topRightPoint.x, transform.localPosition.y, BasePositionZ);
+                transform.position = new Vector3(topRightPoint.x, transform.position.y, BasePositionZ);
             }
 
             if (transform.localPosition.x < bottomLeftPoint.x)
             {
-                transform.localPosition = new Vector3(bottomLeftPoint.x, transform.localPosition.y, BasePositionZ);
+                transform.position = new Vector3(bottomLeftPoint.x, transform.position.y, BasePositionZ);
             }
 
 
@@ -83,7 +83,7 @@ public class MainCamera : MonoBehaviour
         else
         {
             StopCoroutine(_lookingCoroutine);
-            _followingCoroutine = StartCoroutine(FollowingTarget());
+            _followingCoroutine = StartCoroutine(FollowingTarget(_player));
         }
     }
 }

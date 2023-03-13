@@ -6,17 +6,16 @@ using UnityEngine.UI;
 public class LevelInfoDisplay : MonoBehaviour
 {
     [SerializeField] private Text _text;
-    [SerializeField] private LevelManager _levelManager;
     [SerializeField] private CanvasGroup _canvasGroup;  
 
     private void OnEnable()
     {
-        _levelManager.GameOver += OnGameOver;
+        LevelManager.GameOver += OnGameOver;
     }
 
     private void OnDisable()
     {
-        _levelManager.GameOver -= OnGameOver;
+        LevelManager.GameOver -= OnGameOver;
     }
 
     private void Start()
@@ -26,7 +25,7 @@ public class LevelInfoDisplay : MonoBehaviour
 
     private void OnGameOver(LevelStates state)
     {
-        _levelManager.GameOver -= OnGameOver;
+        LevelManager.GameOver -= OnGameOver;
         _canvasGroup.alpha = 1;
 
         switch (state)

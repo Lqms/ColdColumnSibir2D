@@ -5,18 +5,16 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class Car : MonoBehaviour
 {
-    [SerializeField] private LevelManager _levelManager;
-
     private BoxCollider2D _collider;
 
     private void OnEnable()
     {
-        _levelManager.GameOver += OnGameOver;
+        LevelManager.GameOver += OnGameOver;
     }
 
     private void OnDisable()
     {
-        _levelManager.GameOver -= OnGameOver;
+        LevelManager.GameOver -= OnGameOver;
     }
 
     private void Start()
@@ -28,11 +26,26 @@ public class Car : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Player player))
-            print("yohooo win");
+        {
+            player.gameObject.SetActive(false);
+            StartCoroutine(RidingOut());
+        }
+    }
+
+    private IEnumerator RidingOut()
+    {
+        float speed = 3;
+
+        while (true)
+        {
+            yield return null;
+            transform.Translate(Vector2.up * Time.deltaTime * speed);
+        }
     }
 
     private void OnGameOver(LevelStates state)
     {
-        _collider.isTrigger = true;
+        if (state == LevelStates.Victory)
+            _collider.isTrigger = true;
     }
 }

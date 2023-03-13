@@ -17,7 +17,6 @@ public class Bullet : MonoBehaviour
         if (collision.TryGetComponent(out Health health))
             health.ApplyDamage(BaseDamage / _damageReduceCoeff);
 
-        print(collision.gameObject.name);
         gameObject.SetActive(false);
     }
 

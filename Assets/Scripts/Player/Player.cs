@@ -15,10 +15,7 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerInput.MoveKeyPressing += OnMoveKeyPressing;
-        PlayerInput.ShootKeyPressing += OnShootKeyPressing;
-        PlayerInput.ThrowGunKeyPressed += OnThrowGunKeyPressed;
-        PlayerInput.InteractKeyPressed += OnInteractKeyPressed;
+        StartReactingToEvents();
 
         PlayerInput.LookKeyPressed += OnLookKeyPressed;
         _health.Overed += OnHealthOvered;
@@ -26,18 +23,39 @@ public class Player : MonoBehaviour
 
     private void OnDisable()
     {
-        PlayerInput.MoveKeyPressing -= OnMoveKeyPressing;
-        PlayerInput.ShootKeyPressing -= OnShootKeyPressing;
-        PlayerInput.ThrowGunKeyPressed -= OnThrowGunKeyPressed;
-        PlayerInput.InteractKeyPressed -= OnInteractKeyPressed;
+        StopReactingToEvents();
 
         PlayerInput.LookKeyPressed -= OnLookKeyPressed;
         _health.Overed -= OnHealthOvered;
     }
 
+    private void StartReactingToEvents()
+    {
+        PlayerInput.MoveKeyPressing += OnMoveKeyPressing;
+        PlayerInput.ShootKeyPressing += OnShootKeyPressing;
+        PlayerInput.ThrowGunKeyPressed += OnThrowGunKeyPressed;
+        PlayerInput.InteractKeyPressed += OnInteractKeyPressed;
+    }
+
+    private void StopReactingToEvents()
+    {
+        PlayerInput.MoveKeyPressing -= OnMoveKeyPressing;
+        PlayerInput.ShootKeyPressing -= OnShootKeyPressing;
+        PlayerInput.ThrowGunKeyPressed -= OnThrowGunKeyPressed;
+        PlayerInput.InteractKeyPressed -= OnInteractKeyPressed;
+    }
+
     private void OnLookKeyPressed(bool isKeyDown)
     {
-
+        if (isKeyDown)
+        {
+            StopReactingToEvents();
+            _movement.Move(Vector2.zero);
+        }
+        else
+        {
+            StartReactingToEvents();
+        }
     }
 
     private void OnMoveKeyPressing(Vector2 direction)
