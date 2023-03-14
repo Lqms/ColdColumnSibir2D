@@ -18,6 +18,7 @@ public class Health : MonoBehaviour
     public void ApplyDamage(float amount)
     {
         _current = Mathf.Clamp(_current - amount, 0, _current);
+        print(_current);
 
         if (_current == 0)
         {
