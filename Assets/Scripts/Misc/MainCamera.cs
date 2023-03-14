@@ -38,8 +38,8 @@ public class MainCamera : MonoBehaviour
     private IEnumerator Looking()
     {
         float sizeOfLookingArea = 3;
-        Vector3 topRightPoint = transform.localPosition + new Vector3(sizeOfLookingArea, sizeOfLookingArea, 0);
-        Vector3 bottomLeftPoint = transform.localPosition - new Vector3(sizeOfLookingArea, sizeOfLookingArea, 0);
+        Vector3 topRightPoint = transform.position + new Vector3(sizeOfLookingArea, sizeOfLookingArea, 0);
+        Vector3 bottomLeftPoint = transform.position - new Vector3(sizeOfLookingArea, sizeOfLookingArea, 0);
 
         while (true)
         {
@@ -47,26 +47,25 @@ public class MainCamera : MonoBehaviour
             float mouseInputY = Input.GetAxis("Mouse Y");
             transform.Translate(mouseInputX, mouseInputY, 0);
 
-            if (transform.localPosition.y > topRightPoint.y)
+            if (transform.position.y > topRightPoint.y)
             {
                 transform.position = new Vector3(transform.position.x, topRightPoint.y, BasePositionZ);
             }
 
-            if (transform.localPosition.y < bottomLeftPoint.y)
+            if (transform.position.y < bottomLeftPoint.y)
             {
                 transform.position = new Vector3(transform.position.x, bottomLeftPoint.y, BasePositionZ);
             }
 
-            if (transform.localPosition.x > topRightPoint.x)
+            if (transform.position.x > topRightPoint.x)
             {
                 transform.position = new Vector3(topRightPoint.x, transform.position.y, BasePositionZ);
             }
 
-            if (transform.localPosition.x < bottomLeftPoint.x)
+            if (transform.position.x < bottomLeftPoint.x)
             {
                 transform.position = new Vector3(bottomLeftPoint.x, transform.position.y, BasePositionZ);
             }
-
 
             yield return null;  
         }
@@ -77,7 +76,7 @@ public class MainCamera : MonoBehaviour
         if (isKeyDown)
         {
             StopCoroutine(_followingCoroutine);
-            transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + new Vector3(0, 0, BasePositionZ);
+            transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             _lookingCoroutine = StartCoroutine(Looking());
         }
         else
