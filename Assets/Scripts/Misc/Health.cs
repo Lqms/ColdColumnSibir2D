@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    private const float Max = 100; // test 100
+    private const float Max = 1;
     private float _current;
 
     public event UnityAction Overed;
