@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Car : MonoBehaviour
 {
     private BoxCollider2D _collider;
+
+    public event UnityAction PlayerSatInCar;
 
     private void OnEnable()
     {
@@ -27,6 +30,7 @@ public class Car : MonoBehaviour
     {
         if (collision.TryGetComponent(out Player player))
         {
+            PlayerSatInCar?.Invoke();
             player.gameObject.SetActive(false);
             StartCoroutine(RidingOut());
         }
