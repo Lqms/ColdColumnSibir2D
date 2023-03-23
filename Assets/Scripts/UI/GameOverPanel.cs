@@ -6,7 +6,13 @@ using UnityEngine.UI;
 public class GameOverPanel : MonoBehaviour
 {
     [SerializeField] private Car _car;
+    [SerializeField] private ScoreHandler _scoreHandler;
+
+    [Header("UI")]
     [SerializeField] private Image _panel;
+    [SerializeField] private Text _header;
+    [SerializeField] private Text _killScore;
+    [SerializeField] private Text _pressAnyButton;
 
     private void OnEnable()
     {
@@ -39,13 +45,26 @@ public class GameOverPanel : MonoBehaviour
             yield return null;
         }
 
+        // анимированный UI с итогами уровня, который можно скипнуть и в конце подтверждение нажатием любой клавиши для перехода на след. уровень
+
+        Text[] uiElements = { _header, _killScore, _pressAnyButton};
+        _killScore.text = "Kill Score: " + _scoreHandler.KillScore.ToString();
+
+        foreach (var element in uiElements)
+        {
+            yield return new WaitForSeconds(0.5f);
+            element.gameObject.SetActive(true);
+        }
+
+        print(_scoreHandler.Accuracy);
+
         while (true)
         {
             yield return null;
 
             if (Input.anyKeyDown)
             {
-                Application.Quit();
+                print("уровень завершён");
             }
         }
     }
