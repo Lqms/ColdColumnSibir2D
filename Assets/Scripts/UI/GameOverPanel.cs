@@ -12,7 +12,11 @@ public class GameOverPanel : MonoBehaviour
     [SerializeField] private Image _panel;
     [SerializeField] private Text _header;
     [SerializeField] private Text _killScore;
+    [SerializeField] private Text _accuracy;
     [SerializeField] private Text _pressAnyButton;
+
+    [Header("Texts")]
+    [SerializeField] Text[] _texts;
 
     private void OnEnable()
     {
@@ -24,10 +28,18 @@ public class GameOverPanel : MonoBehaviour
         _car.PlayerSatInCar -= OnPlayerSatInCar;
     }
 
+    private void Start()
+    {
+        _panel.color = new Color(0, 0, 0, 0);
+
+        foreach (var text in _texts)
+            text.gameObject.SetActive(false);
+
+        _panel.gameObject.SetActive(false);
+    }
+
     private void OnPlayerSatInCar()
     {
-        _panel.gameObject.SetActive(true);
-
         StartCoroutine(Fading());
     }
 
@@ -35,6 +47,8 @@ public class GameOverPanel : MonoBehaviour
     {
         float alpha = 0;
         float fadeSpeed = 2;
+
+        _panel.gameObject.SetActive(true);
         _panel.color = new Color(0, 0, 0, alpha);
 
         while (alpha < 1)
@@ -45,18 +59,15 @@ public class GameOverPanel : MonoBehaviour
             yield return null;
         }
 
-        // анимированный UI с итогами уровня, который можно скипнуть и в конце подтверждение нажатием любой клавиши для перехода на след. уровень
-
-        Text[] uiElements = { _header, _killScore, _pressAnyButton};
         _killScore.text = "Kill Score: " + _scoreHandler.KillScore.ToString();
+        _accuracy.text = $"Accuracy: {Mathf.Ceil(_scoreHandler.Accuracy)}%";
 
-        foreach (var element in uiElements)
+        foreach (var text in _texts)
         {
             yield return new WaitForSeconds(0.5f);
-            element.gameObject.SetActive(true);
+            text.gameObject.SetActive(true);
         }
 
-        print(_scoreHandler.Accuracy);
 
         while (true)
         {

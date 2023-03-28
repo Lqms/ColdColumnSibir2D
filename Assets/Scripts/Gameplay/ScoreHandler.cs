@@ -12,11 +12,11 @@ public class ScoreHandler : MonoBehaviour
     private int _killStreakCounter = 1;
     private int _killScore;
     private Coroutine _coroutine;
-    private float _enemiesCount;
+    private float _killedEnemiesCount;
     private float _playerShootsCount;
 
     public int KillScore => _killScore;
-    public float Accuracy { get; private set; }
+    public float Accuracy => (_killedEnemiesCount / _playerShootsCount) * 100;
 
     private void OnEnable()
     {
@@ -30,17 +30,11 @@ public class ScoreHandler : MonoBehaviour
         _playerCombat.Shooted -= OnPlayerShooted;
     }
 
-    private void Start()
-    {
-        _enemiesCount = FindObjectsOfType<Enemy>().Length;
-        // print(_enemiesCount);
-    }
-
     private void OnEnemyDied()
     {
         _killScore += _enemyKillBounty * _killStreakCounter;
         _killStreakCounter++;
-        // print(_killStreakCounter);
+        _killedEnemiesCount++;
 
         if (_coroutine != null)
             StopCoroutine(_coroutine);
@@ -53,15 +47,11 @@ public class ScoreHandler : MonoBehaviour
         yield return new WaitForSeconds(_killStreakTimer);
 
         _killStreakCounter = 1;
-        // print(_killStreakCounter);
         _coroutine = null;
     }
 
     private void OnPlayerShooted()
     {
         _playerShootsCount++;
-        // print(_playerShootsCount);
-        Accuracy = (_enemiesCount / _playerShootsCount) * 100;
-        print(Accuracy);
     }
 }
