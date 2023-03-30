@@ -21074,7 +21074,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 49976262199158901, guid: d0b51345189edee4cba8980a83c1717b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.9
+      value: -10.272
       objectReference: {fileID: 0}
     - target: {fileID: 49976262199158901, guid: d0b51345189edee4cba8980a83c1717b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -21116,6 +21116,10 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 2011124802}
+    - target: {fileID: 49976262199158920, guid: d0b51345189edee4cba8980a83c1717b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 49976262199158922, guid: d0b51345189edee4cba8980a83c1717b, type: 3}
       propertyPath: _patrolAreaSizeX
       value: 16
@@ -21136,6 +21140,14 @@ PrefabInstance:
       propertyPath: _currentState
       value: 
       objectReference: {fileID: 1456744853}
+    - target: {fileID: 49976262199158924, guid: d0b51345189edee4cba8980a83c1717b, type: 3}
+      propertyPath: _maxTimeBetweenTurn
+      value: 9999
+      objectReference: {fileID: 0}
+    - target: {fileID: 49976262199158924, guid: d0b51345189edee4cba8980a83c1717b, type: 3}
+      propertyPath: _minTimeBetweenTurn
+      value: 999
+      objectReference: {fileID: 0}
     - target: {fileID: 3120251459624700744, guid: d0b51345189edee4cba8980a83c1717b, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -21516,7 +21528,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7293524304216004067, guid: 084d2e9e281e15847a78a4cde9a75911, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.72
+      value: -9.91
       objectReference: {fileID: 0}
     - target: {fileID: 7293524304216004067, guid: 084d2e9e281e15847a78a4cde9a75911, type: 3}
       propertyPath: m_LocalPosition.z

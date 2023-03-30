@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Health health))
-            health.ApplyDamage(BaseDamage / _damageReduceCoeff);
+            health.ApplyDamage(BaseDamage / _damageReduceCoeff, transform.position);
 
         gameObject.SetActive(false);
     }
