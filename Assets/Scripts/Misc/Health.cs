@@ -7,8 +7,9 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private bool _isHead = false;
 
-    private const float Max = 1_000;
     private float _current;
+
+    private const float Max = 1;
 
     public event UnityAction Overed;
     public event UnityAction HeadShoted;
@@ -22,17 +23,14 @@ public class Health : MonoBehaviour
     {
         if (_isHead)
         {
-            // _current = 0;
-            _current = Mathf.Clamp(_current - amount, 0, _current);
-            print("headshoted");
+            _current = 0;
             HeadShoted?.Invoke();
+            print("headshot");
         }
         else
         {
             _current = Mathf.Clamp(_current - amount, 0, _current);
         }
-
-        print(_current);
 
         if (_current == 0)
             Overed?.Invoke();

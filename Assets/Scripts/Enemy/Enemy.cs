@@ -20,11 +20,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] private DetectionSystem _detectionSystem;
 
     public static event UnityAction Died;
+    public static event UnityAction HeadShoted;
 
     private void OnEnable()
     {
         foreach (var part in _bodyParts)
+        {
+            part.HeadShoted += OnHeadShoted;
             part.Overed += OnHealthOvered;
+        }
 
         _detectionSystem.PlayerDetected += OnPlayerDetected;
     }
@@ -32,7 +36,10 @@ public class Enemy : MonoBehaviour
     private void OnDisable()
     {
         foreach (var part in _bodyParts)
-            part.Overed += OnHealthOvered;
+        {
+            part.HeadShoted -= OnHeadShoted;
+            part.Overed -= OnHealthOvered;
+        }
 
         _detectionSystem.PlayerDetected -= OnPlayerDetected;
     }
@@ -56,5 +63,10 @@ public class Enemy : MonoBehaviour
     {
         _detectionSystem.gameObject.SetActive(false);
         _stateMachine.SwitchState(States.Combat);
+    }
+
+    private void OnHeadShoted()
+    {
+        HeadShoted?.Invoke();
     }
 }

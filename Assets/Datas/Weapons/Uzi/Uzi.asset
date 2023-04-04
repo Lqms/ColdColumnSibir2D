@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fireRate: 120
   _fireRange: 6
-  _shotPower: 30
+  _shotPower: 20
   _maxBullets: 30
   _shootSFX: {fileID: 8300000, guid: ed58fa9b62f495341888b0b7cd98ed4e, type: 3}
   _sprite: {fileID: 21300000, guid: c136bcfc15239c24581d2c96aa1aa6d0, type: 2}

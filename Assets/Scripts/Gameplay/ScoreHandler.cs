@@ -11,22 +11,26 @@ public class ScoreHandler : MonoBehaviour
 
     private int _killStreakCounter = 1;
     private int _killScore;
-    private Coroutine _coroutine;
     private float _killedEnemiesCount;
     private float _playerShootsCount;
+    private int _headShotsCounter;
+    private Coroutine _coroutine;
 
     public int KillScore => _killScore;
+    public int HeadShotsCounter => _headShotsCounter;
     public float Accuracy => (_killedEnemiesCount / _playerShootsCount) * 100;
 
     private void OnEnable()
     {
         Enemy.Died += OnEnemyDied;
+        Enemy.HeadShoted += OnHeadShoted;
         _playerCombat.Shooted += OnPlayerShooted;
     }
 
     private void OnDisable()
     {
         Enemy.Died -= OnEnemyDied;
+        Enemy.HeadShoted -= OnHeadShoted;
         _playerCombat.Shooted -= OnPlayerShooted;
     }
 
@@ -53,5 +57,11 @@ public class ScoreHandler : MonoBehaviour
     private void OnPlayerShooted()
     {
         _playerShootsCount++;
+    }
+
+    private void OnHeadShoted()
+    {
+        _headShotsCounter++;
+        print(_headShotsCounter);
     }
 }
