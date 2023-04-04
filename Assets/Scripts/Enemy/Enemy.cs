@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private EnemyStateMachine _stateMachine;
-    [SerializeField] private Health _health;
+    [SerializeField] private Health[] _bodyParts;
     [SerializeField] private NavMeshAgent _agent;
 
     [Header("Other objects")]
@@ -23,13 +23,17 @@ public class Enemy : MonoBehaviour
 
     private void OnEnable()
     {
-        _health.Overed += OnHealthOvered;
+        foreach (var part in _bodyParts)
+            part.Overed += OnHealthOvered;
+
         _detectionSystem.PlayerDetected += OnPlayerDetected;
     }
 
     private void OnDisable()
     {
-        _health.Overed += OnHealthOvered;
+        foreach (var part in _bodyParts)
+            part.Overed += OnHealthOvered;
+
         _detectionSystem.PlayerDetected -= OnPlayerDetected;
     }
 

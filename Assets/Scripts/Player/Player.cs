@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerMovement _movement;
     [SerializeField] private PlayerCombat _combat;
     [SerializeField] private PlayerCollisionHandler _collisionHandler;
-    [SerializeField] private Health _health;
+    [SerializeField] private Health[] _bodyParts;
 
     public event UnityAction Died;
 
@@ -18,7 +18,9 @@ public class Player : MonoBehaviour
         StartReactingToEvents();
 
         PlayerInput.LookKeyPressed += OnLookKeyPressed;
-        _health.Overed += OnHealthOvered;
+
+        foreach (var part in _bodyParts)
+            part.Overed += OnHealthOvered;
     }
 
     private void OnDisable()
@@ -26,7 +28,9 @@ public class Player : MonoBehaviour
         StopReactingToEvents();
 
         PlayerInput.LookKeyPressed -= OnLookKeyPressed;
-        _health.Overed -= OnHealthOvered;
+
+        foreach (var part in _bodyParts)
+            part.Overed -= OnHealthOvered;
     }
 
     private void StartReactingToEvents()

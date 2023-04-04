@@ -5,34 +5,36 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private Transform _head;
-    [SerializeField] private float _headRadius = 1;
+    [SerializeField] private bool _isHead = false;
 
     private const float Max = 1_000;
     private float _current;
 
     public event UnityAction Overed;
-    public event UnityAction HeadShot;
+    public event UnityAction HeadShoted;
 
     private void Start()
     {
         _current = Max;
     }
 
-    public void ApplyDamage(float amount, Vector3 bulletPosition)
+    public void ApplyDamage(float amount)
     {
-        _current = Mathf.Clamp(_current - amount, 0, _current);
+        if (_isHead)
+        {
+            // _current = 0;
+            _current = Mathf.Clamp(_current - amount, 0, _current);
+            print("headshoted");
+            HeadShoted?.Invoke();
+        }
+        else
+        {
+            _current = Mathf.Clamp(_current - amount, 0, _current);
+        }
+
         print(_current);
 
-        if (Vector3.Distance(bulletPosition, _head.position) < _headRadius)
-        {
-            print("headshot");
-            HeadShot?.Invoke();
-        }
-
         if (_current == 0)
-        {
             Overed?.Invoke();
-        }
     }
 }
