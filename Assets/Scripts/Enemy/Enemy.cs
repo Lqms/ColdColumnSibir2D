@@ -5,7 +5,6 @@ using UnityEngine.Events;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(EnemyStateMachine))]
-[RequireComponent(typeof(Health))]
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour
 {
