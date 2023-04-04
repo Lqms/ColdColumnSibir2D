@@ -3081,7 +3081,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &970072184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21080,8 +21080,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 966b1386ecc086f46a7862e75d117aab, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -29614,6 +29614,26 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 7293524303694458760}
+    - target: {fileID: 3190904411958381383, guid: d0b51345189edee4cba8980a83c1717b, type: 3}
+      propertyPath: m_Size.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3190904411958381383, guid: d0b51345189edee4cba8980a83c1717b, type: 3}
+      propertyPath: m_Size.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3190904412568699692, guid: d0b51345189edee4cba8980a83c1717b, type: 3}
+      propertyPath: _hearingAreaSize.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3190904412568699692, guid: d0b51345189edee4cba8980a83c1717b, type: 3}
+      propertyPath: _hearingAreaSize.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3190904412568699694, guid: d0b51345189edee4cba8980a83c1717b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0b51345189edee4cba8980a83c1717b, type: 3}
 --- !u!1 &7293524303694458754
