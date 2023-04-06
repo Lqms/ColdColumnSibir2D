@@ -14,11 +14,14 @@ public class ScoreHandler : MonoBehaviour
     private float _killedEnemiesCount;
     private float _playerShootsCount;
     private int _headShotsCounter;
+    private float _timeElapsed = 0;
+
     private Coroutine _coroutine;
 
     public int KillScore => _killScore;
     public int HeadShotsCounter => _headShotsCounter;
     public float Accuracy => (_killedEnemiesCount / _playerShootsCount) * 100;
+    public string TimeElapsedText => GetElapsedTimeText(_timeElapsed);
 
     private void OnEnable()
     {
@@ -32,6 +35,30 @@ public class ScoreHandler : MonoBehaviour
         Enemy.Died -= OnEnemyDied;
         Enemy.HeadShoted -= OnHeadShoted;
         _playerCombat.Shooted -= OnPlayerShooted;
+    }
+
+    private void Update()
+    {
+        _timeElapsed += Time.deltaTime;
+    }
+
+    private string GetElapsedTimeText(float elapsedTime)
+    {
+        int timeElapsed = (int)elapsedTime;
+
+        int minutes = timeElapsed / 60;
+        int seconds = timeElapsed - minutes * 60;
+
+        string secondsText = seconds.ToString();
+        string minutesText = minutes.ToString();
+
+        if (secondsText.Length == 1)
+            secondsText = "0" + secondsText;
+
+        if (minutesText.Length == 1)
+            minutesText = "0" + minutesText;
+
+        return $"{minutesText}m {secondsText}s";
     }
 
     private void OnEnemyDied()

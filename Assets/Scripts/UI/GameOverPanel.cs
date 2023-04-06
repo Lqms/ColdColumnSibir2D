@@ -13,6 +13,8 @@ public class GameOverPanel : MonoBehaviour
     [SerializeField] private Text _header;
     [SerializeField] private Text _killScore;
     [SerializeField] private Text _accuracy;
+    [SerializeField] private Text _headshots;
+    [SerializeField] private Text _timeElapsed;
     [SerializeField] private Text _pressAnyButton;
 
     [Header("Texts")]
@@ -61,6 +63,8 @@ public class GameOverPanel : MonoBehaviour
 
         _killScore.text = "Kill Score: " + _scoreHandler.KillScore.ToString();
         _accuracy.text = $"Accuracy: {Mathf.Ceil(_scoreHandler.Accuracy)}%";
+        _headshots.text = "Headshots: " + _scoreHandler.HeadShotsCounter.ToString();
+        _timeElapsed.text = "Time: " + _scoreHandler.TimeElapsedText;
 
         foreach (var text in _texts)
         {
