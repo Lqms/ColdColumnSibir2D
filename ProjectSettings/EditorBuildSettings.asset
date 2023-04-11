@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 62cad530db35f7f46bcb19bbc9e94fec
+  - enabled: 1
     path: Assets/Scenes/Restaurant.unity
     guid: 883b58b83de57cd498b0f8011287f694
+  - enabled: 1
+    path: Assets/Scenes/Apartaments.unity
+    guid: 7c6e86bace1ff074dac13a04d6490698
   m_configObjects: {}
