@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameOverPanel : MonoBehaviour
@@ -80,6 +81,7 @@ public class GameOverPanel : MonoBehaviour
             if (Input.anyKeyDown)
             {
                 print("уровень завершён");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
         }
     }
