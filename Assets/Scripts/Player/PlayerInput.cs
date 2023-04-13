@@ -19,6 +19,7 @@ public class PlayerInput : MonoBehaviour
     [Header("Optional")]
     [SerializeField] private KeyCode _lookKey = KeyCode.LeftShift;
     [SerializeField] private KeyCode _restartKey = KeyCode.R;
+    [SerializeField] private KeyCode _openMenuKey = KeyCode.Escape;
 
     public static event UnityAction<bool> LookKeyPressed;
     public static event UnityAction<Vector2> MoveKeyPressing;
@@ -26,15 +27,21 @@ public class PlayerInput : MonoBehaviour
     public static event UnityAction ThrowGunKeyPressed;
     public static event UnityAction InteractKeyPressed;
     public static event UnityAction RestartKeyPressed;
+    public static event UnityAction OpenMenuKeyPressed;
 
     private void Update()
     {
-        CheckMovementKeys();
-        CheckShootKey();
-        CheckThrowGunKey();
-        CheckInteractKey();
-        CheckLookKey();
+        if (Time.timeScale != 0)
+        {
+            CheckMovementKeys();
+            CheckShootKey();
+            CheckThrowGunKey();
+            CheckInteractKey();
+            CheckLookKey();
+        }
+
         CheckRestartKey();
+        CheckOpenMenuKey();
     }
 
     private void CheckMovementKeys()
@@ -105,6 +112,14 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKey(_restartKey))
         {
             RestartKeyPressed?.Invoke();
+        }
+    }
+
+    private void CheckOpenMenuKey()
+    {
+        if (Input.GetKeyDown(_openMenuKey))
+        {
+            OpenMenuKeyPressed?.Invoke();         
         }
     }
 }
