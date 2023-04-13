@@ -81,7 +81,17 @@ public class GameOverPanel : MonoBehaviour
             if (Input.anyKeyDown)
             {
                 print("уровень завершён");
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+                int mainMenuSceneIndex = 0;
+
+                if (nextSceneIndex + 1 == SceneManager.sceneCountInBuildSettings)
+                {
+                    SceneManager.LoadScene(mainMenuSceneIndex);
+                }
+                else
+                {
+                    SceneManager.LoadScene(nextSceneIndex);
+                }
             }
         }
     }
