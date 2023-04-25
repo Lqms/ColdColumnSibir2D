@@ -27,6 +27,7 @@ public class Weapon : MonoBehaviour
 
         var spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = Data.Sprite;
+        spriteRenderer.sortingOrder = 5;
 
         _collider.offset = new Vector2(0, 0);
         _collider.size = new Vector3(spriteRenderer.bounds.size.x / transform.lossyScale.x,
