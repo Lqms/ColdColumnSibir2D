@@ -36,7 +36,7 @@ public class LevelManager : MonoBehaviour
         _player.Died -= OnPlayerDied;
     }
 
-    private void OnEnemyDied()
+    private void OnEnemyDied(Enemy enemy)
     {
         _enemiesLeft--;
 

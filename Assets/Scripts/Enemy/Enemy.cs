@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private DetectionSystem _detectionSystem;
 
-    public static event UnityAction Died;
+    public static event UnityAction<Enemy> Died;
     public static event UnityAction HeadShoted;
 
     private void OnEnable()
@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
     private void OnHealthOvered()
     {
         _weapon.Drop();
-        Died?.Invoke();
+        Died?.Invoke(this);
         Destroy(gameObject);
     }
 

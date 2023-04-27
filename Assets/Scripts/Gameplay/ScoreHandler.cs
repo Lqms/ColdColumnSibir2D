@@ -61,7 +61,7 @@ public class ScoreHandler : MonoBehaviour
         return $"{minutesText}m {secondsText}s";
     }
 
-    private void OnEnemyDied()
+    private void OnEnemyDied(Enemy enemy)
     {
         _killScore += _enemyKillBounty * _killStreakCounter;
         _killStreakCounter++;
