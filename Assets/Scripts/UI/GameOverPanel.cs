@@ -84,7 +84,7 @@ public class GameOverPanel : MonoBehaviour
                 int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
                 int mainMenuSceneIndex = 0;
 
-                if (nextSceneIndex + 1 == SceneManager.sceneCountInBuildSettings)
+                if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
                 {
                     SceneManager.LoadScene(mainMenuSceneIndex);
                 }
