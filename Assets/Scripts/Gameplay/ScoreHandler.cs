@@ -19,9 +19,14 @@ public class ScoreHandler : MonoBehaviour
     private Coroutine _coroutine;
 
     public int KillScore => _killScore;
-    public int HeadShotsCounter => _headShotsCounter;
-    public float Accuracy => (_killedEnemiesCount / _playerShootsCount) * 100;
-    public string TimeElapsedText => GetElapsedTimeText(_timeElapsed);
+    public int HeadShotsCounter => _headShotsCounter * HeadshotsScoreMultiplier; // тут тоже небольшую систему честную за %-ность хедов
+    public float Accuracy => (_killedEnemiesCount / _playerShootsCount) * AccuracyScoreMultiplier;
+    public float TimeElapsed => Mathf.Clamp(1000 - _timeElapsed, 0, 1000); // тут систему с 2 сериалайзд филд полями
+
+    // public string TimeElapsedText => GetElapsedTimeText(_timeElapsed);
+
+    private const int AccuracyScoreMultiplier = 1000;
+    private const int HeadshotsScoreMultiplier = 50;
 
     private void OnEnable()
     {
@@ -42,6 +47,7 @@ public class ScoreHandler : MonoBehaviour
         _timeElapsed += Time.deltaTime;
     }
 
+    /*
     private string GetElapsedTimeText(float elapsedTime)
     {
         int timeElapsed = (int)elapsedTime;
@@ -60,6 +66,7 @@ public class ScoreHandler : MonoBehaviour
 
         return $"{minutesText}m {secondsText}s";
     }
+    */
 
     private void OnEnemyDied(Enemy enemy)
     {

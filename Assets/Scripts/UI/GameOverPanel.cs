@@ -46,6 +46,20 @@ public class GameOverPanel : MonoBehaviour
         StartCoroutine(Fading());
     }
 
+    private IEnumerator TextScoreAnimating(Text text, float score, string textValue, float animationSpeed)
+    {
+        text.gameObject.SetActive(true);
+        float tempScore = 0;
+        float startTime = Time.time;
+
+        while (tempScore < score)
+        {
+            tempScore = Mathf.Clamp(tempScore + Mathf.Pow((Time.time - startTime), 2), tempScore, score);
+            text.text = textValue + (int)tempScore;
+            yield return new WaitForSeconds(Time.deltaTime * animationSpeed);
+        }
+    }
+
     private IEnumerator Fading()
     {
         float alpha = 0;
@@ -62,37 +76,40 @@ public class GameOverPanel : MonoBehaviour
             yield return null;
         }
 
-        _killScore.text = "Kill Score: " + _scoreHandler.KillScore.ToString();
-        _accuracy.text = $"Accuracy: {Mathf.Ceil(_scoreHandler.Accuracy)}%";
-        _headshots.text = "Headshots: " + _scoreHandler.HeadShotsCounter.ToString();
-        _timeElapsed.text = "Time: " + _scoreHandler.TimeElapsedText;
+        StartCoroutine(TextScoreAnimating(_killScore, _scoreHandler.KillScore, "Kill Score Bonus: ", 0.02f));
+        StartCoroutine(TextScoreAnimating(_accuracy, Mathf.Ceil(_scoreHandler.Accuracy), "Accuracy Bonus: ", 0.02f));
+        StartCoroutine(TextScoreAnimating(_headshots, _scoreHandler.HeadShotsCounter, "Headshots Bonus: ", 0.02f));
+        StartCoroutine(TextScoreAnimating(_timeElapsed, _scoreHandler.TimeElapsed, "Time Bonus: ", 0.02f));
 
-        foreach (var text in _texts)
-        {
-            yield return new WaitForSeconds(0.5f);
-            text.gameObject.SetActive(true);
-        }
+        StartCoroutine(WaitingForInput());
+    }
 
-
+    private IEnumerator WaitingForInput()
+    {
         while (true)
         {
             yield return null;
 
             if (Input.anyKeyDown)
             {
-                print("уровень завершён");
-                int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-                int mainMenuSceneIndex = 0;
-
-                if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
-                {
-                    SceneManager.LoadScene(mainMenuSceneIndex);
-                }
-                else
-                {
-                    SceneManager.LoadScene(nextSceneIndex);
-                }
+                LoadNextLevel();
             }
+        }
+    }
+
+    private static void LoadNextLevel()
+    {
+        print("уровень завершён");
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        int mainMenuSceneIndex = 0;
+
+        if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(mainMenuSceneIndex);
+        }
+        else
+        {
+            SceneManager.LoadScene(nextSceneIndex);
         }
     }
 }
