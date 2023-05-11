@@ -5,28 +5,29 @@ using UnityEngine;
 
 public class ScoreHandler : MonoBehaviour
 {
-    [SerializeField] private int _enemyKillBounty = 100;
     [SerializeField] private PlayerCombat _playerCombat;
+    [SerializeField] private float _enemyKillBounty = 100;
     [SerializeField] private float _killStreakTimer = 10;
+    [SerializeField] private float _secondsCountForBestTime;
 
-    private int _killStreakCounter = 1;
-    private int _killScore;
-    private float _killedEnemiesCount;
-    private float _playerShootsCount;
-    private int _headShotsCounter;
+    private float _killStreakCounter = 1;
+    private float _killScore = 0;
+    private float _killedEnemiesCount = 0;
+    private float _playerShootsCount = 0;
+    private float _headShotsCounter = 0;
     private float _timeElapsed = 0;
+    private float _timeScoreBonus = 1000;
 
     private Coroutine _coroutine;
 
-    public int KillScore => _killScore;
-    public int HeadShotsCounter => _headShotsCounter * HeadshotsScoreMultiplier; // тут тоже небольшую систему честную за %-ность хедов
-    public float Accuracy => (_killedEnemiesCount / _playerShootsCount) * AccuracyScoreMultiplier;
-    public float TimeElapsed => Mathf.Clamp(1000 - _timeElapsed, 0, 1000); // тут систему с 2 сериалайзд филд полями
+    public float KillScoreBonus => _killScore;
+    public float HeadshotsScoreBonus => _headShotsCounter * HeadshotsScoreMultiplier;
+    public float AccuracyScoreBonus => (_killedEnemiesCount / _playerShootsCount) * AccuracyScoreMultiplier;
+    public float TimeScoreBonus => _timeScoreBonus;
 
-    // public string TimeElapsedText => GetElapsedTimeText(_timeElapsed);
-
-    private const int AccuracyScoreMultiplier = 1000;
-    private const int HeadshotsScoreMultiplier = 50;
+    private const float AccuracyScoreMultiplier = 1000;
+    private const float HeadshotsScoreMultiplier = 50;
+    private const float MaxTimeScoreBonus = 1000;
 
     private void OnEnable()
     {
@@ -44,7 +45,15 @@ public class ScoreHandler : MonoBehaviour
 
     private void Update()
     {
+        if (FindObjectsOfType<Enemy>().Length == 0)
+            return;
+
         _timeElapsed += Time.deltaTime;
+
+        if (_timeElapsed > _secondsCountForBestTime)
+        {
+            _timeScoreBonus -= MaxTimeScoreBonus / _secondsCountForBestTime * Time.deltaTime;
+        }
     }
 
     /*
