@@ -26,7 +26,7 @@ public class ScoreHandler : MonoBehaviour
     public float TimeScoreBonus => _timeScoreBonus;
 
     private const float AccuracyScoreMultiplier = 1000;
-    private const float HeadshotsScoreMultiplier = 50;
+    private const float HeadshotsScoreMultiplier = 500;
     private const float MaxTimeScoreBonus = 1000;
 
     private void OnEnable()
