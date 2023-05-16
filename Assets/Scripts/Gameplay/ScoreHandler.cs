@@ -24,6 +24,7 @@ public class ScoreHandler : MonoBehaviour
     public float HeadshotsScoreBonus => _headShotsCounter * HeadshotsScoreMultiplier;
     public float AccuracyScoreBonus => (_killedEnemiesCount / _playerShootsCount) * AccuracyScoreMultiplier;
     public float TimeScoreBonus => _timeScoreBonus;
+    public float TotalScore => _timeScoreBonus + _killScore + AccuracyScoreBonus + HeadshotsScoreBonus;
 
     private const float AccuracyScoreMultiplier = 1000;
     private const float HeadshotsScoreMultiplier = 500;
@@ -55,27 +56,6 @@ public class ScoreHandler : MonoBehaviour
             _timeScoreBonus -= MaxTimeScoreBonus / _secondsCountForBestTime * Time.deltaTime;
         }
     }
-
-    /*
-    private string GetElapsedTimeText(float elapsedTime)
-    {
-        int timeElapsed = (int)elapsedTime;
-
-        int minutes = timeElapsed / 60;
-        int seconds = timeElapsed - minutes * 60;
-
-        string secondsText = seconds.ToString();
-        string minutesText = minutes.ToString();
-
-        if (secondsText.Length == 1)
-            secondsText = "0" + secondsText;
-
-        if (minutesText.Length == 1)
-            minutesText = "0" + minutesText;
-
-        return $"{minutesText}m {secondsText}s";
-    }
-    */
 
     private void OnEnemyDied(Enemy enemy)
     {

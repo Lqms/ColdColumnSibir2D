@@ -11,15 +11,14 @@ public class GameOverPanel : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private Image _panel;
-    [SerializeField] private Text _header;
+
     [SerializeField] private Text _killScore;
     [SerializeField] private Text _accuracyScore;
     [SerializeField] private Text _headshotsScore;
     [SerializeField] private Text _timeScore;
-    [SerializeField] private Text _pressAnyButton;
+    [SerializeField] private Text _totalScore;
 
-    [Header("Texts")]
-    [SerializeField] Text[] _texts;
+    [SerializeField] private Text _pressAnyButton;
 
     private bool _scoreAnimationIsOver;
 
@@ -36,10 +35,6 @@ public class GameOverPanel : MonoBehaviour
     private void Start()
     {
         _panel.color = new Color(0, 0, 0, 0);
-
-        foreach (var text in _texts)
-            text.gameObject.SetActive(false);
-
         _panel.gameObject.SetActive(false);
     }
 
@@ -86,12 +81,13 @@ public class GameOverPanel : MonoBehaviour
 
             yield return null;
         }
-
+   
         IEnumerator[] coroutines = {
             TextScoreAnimating(_killScore, _scoreHandler.KillScoreBonus, "Kill Score Bonus: ", 0.02f),
             TextScoreAnimating(_accuracyScore, _scoreHandler.AccuracyScoreBonus, "Accuracy Bonus: ", 0.02f),
             TextScoreAnimating(_headshotsScore, _scoreHandler.HeadshotsScoreBonus, "Headshots Bonus: ", 0.02f),
-            TextScoreAnimating(_timeScore, _scoreHandler.TimeScoreBonus, "Time Bonus: ", 0.02f)
+            TextScoreAnimating(_timeScore, _scoreHandler.TimeScoreBonus, "Time Bonus: ", 0.02f),
+            TextScoreAnimating(_totalScore, _scoreHandler.TotalScore * 30, "Total Score:\n", 0.02f)
             };
 
         for (int i = 0; i < coroutines.Length; i++)
@@ -104,6 +100,7 @@ public class GameOverPanel : MonoBehaviour
             }
         }
 
+        _pressAnyButton.gameObject.SetActive(true);
         StartCoroutine(WaitingForInput());
     }
 
