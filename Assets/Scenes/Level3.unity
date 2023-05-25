@@ -13101,11 +13101,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1472106061}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2e4f774c0f7dbe4f972c2fe824f9b4a, type: 3}
+  m_Script: {fileID: 11500000, guid: 4907040b7834ec24683d982bb70471f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animationSpeed: 0.02
-  _scaleChangeValue: {x: 0.1, y: 0.1, z: 0.1}
+  _animationSpeed: 0.4
+  _growScaleCoef: 1.2
 --- !u!1 &1504655980
 GameObject:
   m_ObjectHideFlags: 0
