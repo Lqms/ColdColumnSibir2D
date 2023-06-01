@@ -27,15 +27,19 @@ public class MainMenu : MonoBehaviour
         _exitButton.onClick.RemoveListener(OnExitButtonClicked);
     }
 
+    private void Start()
+    {
+        _continueButton.interactable = PlayerPrefs.HasKey(Constants.LastSavedSceneIndex) && PlayerPrefs.GetInt(Constants.LastSavedSceneIndex) != 0;
+    }
+
     private void OnStartButtonClicked()
     {
-        print("start");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneLoader.LoadNewGameScene();
     }
 
     private void OnContinueButtonClicked()
     {
-        print("Continue");
+        SceneLoader.LoadLastSavedScene();
     }
 
     private void OnSettingsButtonClicked()
