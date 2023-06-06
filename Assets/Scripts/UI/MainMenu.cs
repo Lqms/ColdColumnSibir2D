@@ -30,6 +30,14 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         _continueButton.interactable = PlayerPrefs.HasKey(Constants.LastSavedSceneIndex) && PlayerPrefs.GetInt(Constants.LastSavedSceneIndex) != 0;
+        // _continueButton.interactable = false;
+
+        if (_continueButton.interactable == false)
+        {
+            _continueButton.TryGetComponent(out ButtonAnimator buttonAnimator);
+            buttonAnimator.enabled = false;
+            buttonAnimator.Text.color = new Color(0, 0, 0, 0.5f);
+        }
     }
 
     private void OnStartButtonClicked()

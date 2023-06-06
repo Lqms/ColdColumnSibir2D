@@ -17,13 +17,20 @@ public class ButtonAnimator : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private Color _firstColor;
     [SerializeField] private Color _secondColor;
 
+    [Header("Hover animation")]
+    [SerializeField] private Color _hoverColor;
+    [SerializeField] private float _hoverScaleSize;
+
     private Coroutine _floatingCoroutine;
     private Coroutine _colorChangingCoroutine;
+    private Coroutine _growingCoroutine;
 
     private Color _currentFirstColor;
     private Color _currentSecondColor;
     private Vector3 _startPosition;
     private Vector3 _startScale;
+
+    public TMP_Text Text => _text;
 
     private void Start()
     {
@@ -60,15 +67,31 @@ public class ButtonAnimator : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         StopCoroutine(_floatingCoroutine);
         StopCoroutine(_colorChangingCoroutine);
-        _text.colorGradient = new VertexGradient(Color.white, Color.white, Color.white, Color.white);
-        transform.localScale *= 1.2f;
+
+        _text.colorGradient = new VertexGradient(_hoverColor, _hoverColor, _hoverColor, _hoverColor);
+
+        _growingCoroutine = StartCoroutine(Growing());
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         _floatingCoroutine = StartCoroutine(PositionFloatAnimating());
         _colorChangingCoroutine = StartCoroutine(ColorAnimating());
+
         transform.localScale = _startScale;
+
+        StopCoroutine(_growingCoroutine);
+    }
+
+    private IEnumerator Growing()
+    {
+        var scaledSize = transform.localScale * _hoverScaleSize;
+
+        while (transform.localScale != scaledSize)
+        {
+            transform.localScale = Vector3.MoveTowards(transform.localScale, scaledSize, _animationSpeed * Time.deltaTime);
+            yield return null;
+        }
     }
 
     private IEnumerator ColorAnimating()
